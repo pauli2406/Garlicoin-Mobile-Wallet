@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+
+    <title>GarlicMobileWallet</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet"/>
+    <link href="css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+<section id="container" class="">
+    <header class="header dark-bg">
+        <div style="text-align: center;">
+            <a href="index.html" class="logo center">Garli<span style='text-align: center' class="lite">Coin</span></a>
+        </div>
+    </header>
+    <section id="main-content">
+        <section class="wrapper">
+            <!--<div class="row">-->
+            <!--<div class="col-lg-12">-->
+            <!--<h3 class="page-header">-->
+            <!--<span style="padding-right:3px; padding-top: 3px; display:inline-block;">-->
+            <!--&lt;!&ndash;<img class="img-responsive" src="img/garlicoin_icon_light.png"></img>&ndash;&gt;-->
+            <!--</span>-->
+            <!--Garlicoin-->
+            <!--</h3>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="row">
+                <div id="totalBalance"></div>
+                <div id="blockDiff"></div>
+                <div id="blockCount"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong>latest 25 transactions</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" id="reloadTrans" class="btn-setting"><i
+                                        class="fa fa-rotate-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="transTable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 panel-footer">
+                    <a href="#"
+                       onclick="cordova.InAppBrowser.open('https://github.com/pauli2406/GarlicoinAndroidWallet', '_blank');return false;"><span><img
+                            height="25px" src="img/github.ico"></span></a>
+                    <span style="padding-right: 5px"></span>
+                    <a href="#"
+                       onclick="cordova.InAppBrowser.open('http://explorer.grlc-bakery.fun/address/GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC', '_blank');return false;"><span><img
+                            height="25px" src="img/garlicoin_icon_light.png"></span></a>
+                    <span style="padding-right: 5px"></span>
+                    Donate: GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/explorer.js"></script>
+<script type="text/javascript" src="js/tmpl.min.js"></script>
+
+</body>
+</html>
+
+<script type="text/x-tmpl" id="tmpl-lastTrans">
+    <table id=transactionTable class="table bootstrap-datatable countries">
+        <thead>
+        <tr>
+            <th>address</th>
+            <th>amount</th>
+            <th>status</th>
+            <th>date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for (var i=0; i<o.last_txs.length; i++) { %}
+        <tr>
+            <td>{%=o.last_txs[i].transactionId%}</td>
+            <td>{%=o.last_txs[i].amount%}</td>
+            <td>{%=o.last_txs[i].status%}</td>
+            <td>{%=o.last_txs[i].date%}</td>
+        </tr>
+        {% } %}
+        </tbody>
+    </table>
+
+
+
+</script>
+
+<script type="text/x-tmpl" id="tmpl-blockCount">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box green-bg">
+                    <i class="fa fa-cubes"></i>
+                    <div class="count">{%=o%}</div>
+                    <div class="title">total blocks mined</div>
+        </div>
+    </div>
+
+
+
+</script>
+
+<script type="text/x-tmpl" id="tmpl-blockDiff">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box blue-bg">
+            <i class="fa fa-cloud-download"></i>
+            <div class="count">{%=o%}</div>
+            <div class="title">current difficulty</div>
+        </div>
+    </div>
+
+
+
+</script>
+
+<script type="text/x-tmpl" id="tmpl-totalBalance">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box yellow-bg">
+            <i class="fa fa-shopping-cart"></i>
+            <div class="count">{%=o%}</div>
+            <div class="title">your balance (GRLC)</div>
+        </div>
+    </div>
+
+
+
+</script>
