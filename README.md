@@ -3,9 +3,9 @@
 This is a Garlicoin Wallet for Android. Created with Phonegap.
 
 Functions:
--Add your own Wallet/Wallets
--See your balance and last 25 transactions.
--See Block difficulty and total mined blocks
+1. Add your own Wallet/Wallets
+2. See your balance and last 25 transactions.
+3. See Block difficulty and total mined blocks
 
 ### Install
 Just download the apk and install it.
