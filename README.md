@@ -1,4 +1,4 @@
-# Garlicoin Wallet 
+# Garlicoin Mobile Wallet 
 
 ##At the Moment only for Android because i´m missing a license for IOS. 
 
