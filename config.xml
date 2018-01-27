@@ -18,6 +18,12 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <platform name="ios">
+        <icon src="/img/garlicoin_icon_light" width="180" height="180" />
+    </platform>
+    <platform name="android">
+        <icon src="/img/garlicoin_icon_light.png" width="180" height="180" />
+    </platform>
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
