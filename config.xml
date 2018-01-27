@@ -1,38 +1,36 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.pochert.GWallet" version="1.0.0" xmlns="http://www.w3.org/ns/widgets"
-        xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.pochert.GWallet" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Garlicoin_Android_Wallet</name>
     <description>
         Garlicoin Android Wallet
     </description>
-    <author email="mpochert@gmail.com"></author>
-    <content src="index.html"/>
-    <preference name="DisallowOverscroll" value="true"/>
-    <preference name="android-minSdkVersion" value="14"/>
-    <preference name="StatusBarOverlaysWebView" value="false"/>
-    <preference name="StatusBarBackgroundColor" value="#ee6e73"/>
-    <preference name="StatusBarStyle" value="blacktranslucent"/>
-    <plugin name="cordova-plugin-statusbar" source="npm" spec="~2.2.0"/>
-    <plugin name="phonegap-plugin-push" source="npm" spec="~1.8.0">
-        <variable name="SENDER_ID" value="XXXXXXX"/>
-    </plugin>
-    <plugin name="cordova-plugin-console" source="npm" spec="~1.0.3"/>
-    <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.1"/>
-    <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1"/>
-    <plugin name="cordova-plugin-inappbrowser" source="npm" spec="~2.0.1 "/>
-
-    <access origin="*"/>
-    <allow-intent href="http://*/*"/>
-    <allow-intent href="https://*/*"/>
-    <allow-intent href="tel:*"/>
-    <allow-intent href="sms:*"/>
-    <allow-intent href="mailto:*"/>
-    <allow-intent href="geo:*"/>
+    <author email="mpochert@gmail.com" />
+    <content src="index.html" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#ee6e73" />
+    <preference name="StatusBarStyle" value="blacktranslucent" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
     <platform name="android">
-        <allow-intent href="market:*"/>
+        <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
-        <allow-intent href="itms:*"/>
-        <allow-intent href="itms-apps:*"/>
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
+    <plugin name="phonegap-plugin-push" spec="~1.8.0">
+        <variable name="SENDER_ID" value="XXXXXXX" />
+    </plugin>
+    <plugin name="cordova-plugin-console" spec="~1.0.3" />
+    <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~2.0.1 " />
 </widget>

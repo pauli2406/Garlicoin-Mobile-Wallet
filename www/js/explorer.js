@@ -1,8 +1,11 @@
 /******************************************Crawl Data from the Explorer********************************************************************/
 function getData() {
     var wallet = "GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC";
+    debugger;
+    var wallet = window.localStorage.getItem("walletAddress");
     $.get('https://explorer.grlc-bakery.fun/address/' + wallet, function (response) {
         //Get the wanted result with substring and co
+        debugger;
         var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
         subbed = subbed.substring(subbed.indexOf('<tbody>') + 1);
         subbed = subbed.substring(0, subbed.indexOf('</tbody>'));

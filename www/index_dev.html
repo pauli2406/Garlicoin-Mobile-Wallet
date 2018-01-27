@@ -33,9 +33,6 @@
                         <div class="row">
                             <div class="col-lg-offset-3 col-lg-6">
                                 <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-secondary" type="button">Hate it</button>
-                                    </span>
                                     <input type="text" class="form-control" placeholder="Product name">
                                     <span class="input-group-btn">
                                         <button class="btn btn-secondary" type="button">Love it</button>
@@ -47,38 +44,45 @@
                 </div>
             </div>
             <h1></h1>
+
             <div style="text-align: center;">
                 <a href="#" class="logo center">saved addresses</span></a>
             </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div id="address_list"></div>
-                        <ul class="list-group">
-                            <div id="d_li_01">
-                                <li class="list-group-item active" id="li_01">Cras justo odio<span
-                                        class="input-group-btn">
-                                    <span>
-                                        <button id="btn_li_01" class='btn btn-danger li_buttons'
-                                                type="button">delete</button>
-                                    </span>
-                                </li>
-                            </div>
-                        </ul>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="input-group">
+                        <input type="text" id="inAddAddress" class="form-control" placeholder="new wallet address">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" id="btnAddAddress" type="button">add</button>
+                        </span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 panel-footer">
-                        <a href="#"
-                           onclick="cordova.InAppBrowser.open('https://github.com/pauli2406/GarlicoinAndroidWallet', '_blank');return false;"><span><img
-                                height="25px" src="img/github.ico"></span></a>
-                        <span style="padding-right: 5px"></span>
-                        <a href="#"
-                           onclick="cordova.InAppBrowser.open('http://explorer.grlc-bakery.fun/address/GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC', '_blank');return false;"><span><img
-                                height="25px" src="img/garlicoin_icon_light.png"></span></a>
-                        <span style="padding-right: 5px"></span>
-                        <div style="float: right">
-                            Donate: GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <div id="address_list">
+
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 panel-footer">
+                            <a href="#"
+                               onclick="cordova.InAppBrowser.open('https://github.com/pauli2406/GarlicoinAndroidWallet', '_blank');return false;"><span><img
+                                    height="25px" src="img/github.ico"></span></a>
+                            <span style="padding-right: 5px"></span>
+                            <a href="#"
+                               onclick="cordova.InAppBrowser.open('http://explorer.grlc-bakery.fun/address/GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC', '_blank');return false;"><span><img
+                                    height="25px" src="img/garlicoin_icon_light.png"></span></a>
+                            <span style="padding-right: 5px"></span>
+                            <div style="float: right">
+                                Donate: GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +90,8 @@
         </section>
     </section>
 </section>
+
+<input type="hidden" id="counter" value=1>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -95,7 +101,9 @@
 
 <script>
     function deleteListEntry(id) {
+        debugger;
         $("#d_li_" + id).remove();
+        window.localStorage.removeItem(id);
     }
 </script>
 
@@ -103,17 +111,15 @@
 </html>
 
 <script type="text/x-tmpl" id="tmpl-transList">
-    <ul class="list-group">
-        {% for (var i=0; i<o.last_txs.length; i++) { %}
-            <div id="d_li_"+i>
-                <li class="list-group-item active" id="li_"+i>o.address<span class="input-group-btn">
-                    <span>
-                        <button id="btn_li_"+i class='btn btn-danger li_buttons' type="button" onclick="deleteListEntry(i)">delete</button>
-                    </span>
-                </li>
-            </div>
-        {% } %}
-    </ul>
-
+        <div class="listItems" id="d_li_{%=o.counter%}">
+            <li class="list-group-item active" id="li_{%=o.counter%}">{%=o.address%}
+            <span class="input-group-btn">
+                <span>
+                    <button id="btn_li_del_{%=o.counter%}" class='btn btn-danger li_buttons' type="button" onclick="deleteListEntry({%=o.counter%})">delete</button>
+                    <button id="btn_li_{%=o.counter%}" class='btn btn-info li_buttons' type="button">go to</button>
+                </span>
+            </span>
+            </li>
+        </div>
 </script>
 
