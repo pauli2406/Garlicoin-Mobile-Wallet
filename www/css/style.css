@@ -241,7 +241,7 @@ a.logo span {
 
 .info-box .title {
 
-    font-size: 12px;
+    font-size: 15px;
 
     text-transform: uppercase;
 
@@ -249,11 +249,16 @@ a.logo span {
 
 }
 
+.info-box .custom {
+
+    font-size: 17px;
+}
+
 .info-box .desc {
 
-    margin-top: 10px;
+    font-size: 17px;
 
-    font-size: 12px;
+    margin-top: 10px;
 
 }
 
@@ -284,6 +289,34 @@ a.logo span {
     background: #26c281;
 
     background-color: #26c281;
+
+}
+.lime-bg {
+
+    color : #fff;
+
+    background : #89b13b;
+
+    background-color : #89b13b;
+
+}
+.teal-bg {
+
+    color : #fff;
+
+    background : #97d3c5;
+
+    background-color : #97d3c5;
+
+}
+
+.purple-bg {
+
+    color : #fff;
+
+    background : #af91e1;
+
+    background-color : #af91e1;
 
 }
 

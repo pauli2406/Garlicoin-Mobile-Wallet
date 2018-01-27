@@ -5,10 +5,9 @@
     <meta charset="utf-8">
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <meta name="viewport"
-          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
 
-    <title>GarlicMobileWallet</title>
+    <title>Garlicoin Mobile Wallet</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -26,18 +25,10 @@
     </header>
     <section id="main-content">
         <section class="wrapper">
-            <!--<div class="row">-->
-            <!--<div class="col-lg-12">-->
-            <!--<h3 class="page-header">-->
-            <!--<span style="padding-right:3px; padding-top: 3px; display:inline-block;">-->
-            <!--&lt;!&ndash;<img class="img-responsive" src="img/garlicoin_icon_light.png"></img>&ndash;&gt;-->
-            <!--</span>-->
-            <!--Garlicoin-->
-            <!--</h3>-->
-            <!--</div>-->
-            <!--</div>-->
             <div class="row">
                 <div id="totalBalance"></div>
+                <div id="usdValue"></div>
+                <div id="rankField"></div>
                 <div id="blockDiff"></div>
                 <div id="blockCount"></div>
             </div>
@@ -79,7 +70,7 @@
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/explorer.js"></script>
+<script type="text/javascript" src="js/wallet.js"></script>
 <script type="text/javascript" src="js/tmpl.min.js"></script>
 
 </body>
@@ -106,22 +97,16 @@
         {% } %}
         </tbody>
     </table>
-
-
-
 </script>
 
 <script type="text/x-tmpl" id="tmpl-blockCount">
     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <div class="info-box green-bg">
-                    <i class="fa fa-cubes"></i>
-                    <div class="count">{%=o%}</div>
-                    <div class="title">Total blocks mined</div>
+                <i class="fa fa-cubes"></i>
+                <div class="count">{%=o%}</div>
+                <div class="title">Total blocks mined</div>
         </div>
     </div>
-
-
-
 </script>
 
 <script type="text/x-tmpl" id="tmpl-blockDiff">
@@ -132,17 +117,39 @@
             <div class="title">Current difficulty</div>
         </div>
     </div>
-
-
-
 </script>
 
 <script type="text/x-tmpl" id="tmpl-totalBalance">
     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <div class="info-box yellow-bg">
             <i class="fa fa-shopping-cart"></i>
+            <div class="count">{%=o.balance%} GRLC</div>
+            <div class="custom">{%=o.priceInUsd%} worth in USD</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-rank">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box lime-bg">
+            <i class="fa fa-list-ol"></i>
             <div class="count">{%=o%}</div>
-            <div class="title">Your balance (GRLC)</div>
+            <div class="title">rank of all Cryptos</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-usdValue">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box teal-bg">
+            <i class="fa fa-dollar"></i>
+            <div class="count">{%=o.pricePerUsd%} $</div>
+            <div class="custom">
+                <span style="color:{%=o.percent_change_color%}">{%=o.percent_change_1h%}% in the  last hour</span>
+            </div>
+            <div class="custom">
+                Volume (24h): {%=o.volume_usd%} USD
+            </div>
         </div>
     </div>
 </script>

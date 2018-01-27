@@ -1,3 +1,7 @@
+/**************************************Globals*********************************************************************************************/
+var USDPRICE;
+var RANK;
+
 /******************************************Crawl Data from the Explorer********************************************************************/
 function getData() {
     var wallet = window.localStorage.getItem("walletAddress");
@@ -85,7 +89,7 @@ function addPagination() {
 /**********************************************************AJAX-Calls********************************************************************/
 
 function getBalance() {
-    var walletAddress = "GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC";
+    var walletAddress = window.localStorage.getItem("walletAddress");
     var url = "https://explorer.grlc-bakery.fun/ext/getaddress/" + walletAddress;
     $.ajax({
         url: url,
@@ -95,7 +99,13 @@ function getBalance() {
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
-            document.getElementById("totalBalance").innerHTML = tmpl("tmpl-totalBalance", balance);
+            value = precisionRound(balance * USDPRICE,2);
+
+            var result = {
+                priceInUsd: value,
+                balance: balance
+            };
+            document.getElementById("totalBalance").innerHTML = tmpl("tmpl-totalBalance", result);
         },
         error: function (result) {
             throw "Es ist ein Fehler aufgetreten."
@@ -136,6 +146,49 @@ function getBlockcount() {
     });
 }
 
+function getRank() {
+    document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", RANK);
+}
+
+function getUsdValue() {
+    debugger;
+    var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
+    $.ajax({
+        url: url,
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            USDPRICE = data[0].price_usd;
+            RANK = data[0].rank;
+            var priceSpan;
+            if(parseFloat(data[0].percent_change_1h)< 0){
+                color = "red";
+            }else{
+                color = "green";
+            }
+            var result = {
+                pricePerUsd: (parseFloat(precisionRound(data[0].price_usd,2))).formatMoney(2),
+                totalValue: data[0].price_usd,
+                price_btc: data[0].price_btc,
+                rank: data[0].rank,
+                volume_usd: (parseFloat(data[0]["24h_volume_usd"])).formatMoney(2),
+                percent_change_color: color,
+                percent_change_1h: data[0].percent_change_1h,
+                percent_change_24h: data[0].percent_change_24h
+            };
+
+            getBalance();
+            getRank();
+
+            document.getElementById("usdValue").innerHTML = tmpl("tmpl-usdValue", result);
+        },
+        error: function (data) {
+            throw "Es ist ein Fehler aufgetreten."
+        }
+    });
+}
+
 /**********************************************************UTILS*************************************************************************/
 function precisionRound(number, precision) {
     var factor = Math.pow(10, precision);
@@ -146,14 +199,25 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
+Number.prototype.formatMoney = function(c, d, t){
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "," : d,
+        t = t == undefined ? "." : t,
+        s = n < 0 ? "-" : "",
+        i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
 /*****************************************************************************************************************************************/
 
 
 window.onload = function () {
+    getUsdValue();
     getData();
     getBlockDifficulty();
     getBlockcount();
-    getBalance();
     $('#reloadTrans').click(function () {
         getData();
     });

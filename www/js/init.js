@@ -20,7 +20,6 @@ function addAddressOnClick() {
 }
 
 function getSavedAddresses() {
-    debugger;
     for (i = 0; i < window.localStorage.length; i++) {
         var address = window.localStorage.getItem("walletAddress");
         var data = {address: address};
