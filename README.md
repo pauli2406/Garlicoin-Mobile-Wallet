@@ -1,6 +1,6 @@
 # Garlicoin Mobile Wallet 
 
-##At the Moment only for Android because i´m missing a license for IOS. 
+## At the Moment only for Android because i´m missing a license for IOS. 
 
 This is a Garlicoin Wallet for Android. Created with Phonegap.
 
