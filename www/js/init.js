@@ -1,11 +1,7 @@
-var walletAddress;
-
-
 window.onload = function () {
     getSavedAddresses();
     addAddressOnClick();
 };
-//PROBLEM mit dem Löschen und SPeichern und auf die andere Seite gehen
 function addAddressOnClick() {
     $('#btnAddAddress').click(function () {
         debugger;
