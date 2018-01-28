@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.pochert.GWallet" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.garlicoin.androidwallet" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Garlicoin_Android_Wallet</name>
     <description>
         Garlicoin Android Wallet
@@ -19,10 +19,10 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="ios">
-        <icon src="/img/garlicoin_icon_light" width="180" height="180" />
+        <icon src="/img/garlicoin_wallet_final.png" width="180" height="180" />
     </platform>
     <platform name="android">
-        <icon src="/img/garlicoin_icon_light.png" width="180" height="180" />
+        <icon src="/img/garlicoin_wallet_final.png" width="180" height="180" />
     </platform>
     <platform name="android">
         <allow-intent href="market:*" />
