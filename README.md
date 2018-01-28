@@ -1,9 +1,9 @@
 # Garlicoin Mobile Wallet  <img src="https://i.imgur.com/JGptWWP.png" width="150"/>
 
-
-## At the Moment only for Android because i´m missing a license for IOS. 
-
 This is a Garlicoin Wallet for Android. Created with Phonegap.
+
+### Important:
+This is no standalone Wallet yet. An existing Wallet Address is needed. 
 
 ---
 #### It allows you to watch:
