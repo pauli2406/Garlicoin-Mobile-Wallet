@@ -22,10 +22,11 @@
 <section id="container" class="">
     <header class="header dark-bg">
         <div style="text-align: center;">
+            <img style="padding-bottom: 20px;" src="img/garlicoin_wallet_final.png" width="50px">
             <a href="index.html" class="logo center">Garli<span style='text-align: center' class="lite">Coin</span></a>
         </div>
     </header>
-    <section id="main-content" class="content">
+    <section style="padding-top: 15px;" id="main-content" class="content">
         <section class="wrapper">
             <div style="text-align: center;">
                 <a href="#" class="logo center">Saved Addresses</span></a>
@@ -73,8 +74,6 @@
     </section>
 </section>
 
-<input type="hidden" id="counter" value=1>
-
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -86,14 +85,14 @@
 </html>
 <script type="text/x-tmpl" id="tmpl-transList">
         <div class="listItems" id="div_list_item">
-            <li class="list-group-item active">
-            <div id="walletAddress">{%=o.address%}</div>
-            <span class="input-group-btn">
-                <span>
-                    <button id="btn_delete" class='btn btn-danger li_buttons' type="button">delete</button>
-                    <input id="btn_goTo" type="button" class='btn btn-info li_buttons' value="submit"/>
+            <li class="list-group-item yellow-bg">
+                <div id="walletAddress">{%=o.address%}</div>
+                <span class="input-group-btn">
+                    <span>
+                        <button id="btn_delete" class='btn btn-danger li_buttons' type="button">delete</button>
+                        <input id="btn_goTo" type="button" class='btn btn-info li_buttons' value="submit"/>
+                    </span>
                 </span>
-            </span>
             </li>
         </div>
 </script>

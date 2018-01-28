@@ -20,10 +20,11 @@
 <section id="container" class="">
     <header class="header dark-bg">
         <div style="text-align: center;">
+            <img style="padding-bottom: 20px;" src="img/garlicoin_wallet_final.png" width="50px">
             <a href="index.html" class="logo center">Garli<span style='text-align: center' class="lite">Coin</span></a>
         </div>
     </header>
-    <section id="main-content">
+    <section style="padding-top: 15px;" id="main-content">
         <section class="wrapper">
             <div class="row">
                 <div id="totalBalance"></div>
@@ -145,7 +146,7 @@
             <i class="fa fa-dollar"></i>
             <div class="count">{%=o.pricePerUsd%} $</div>
             <div class="custom">
-                <span style="color:{%=o.percent_change_color%}">{%=o.percent_change_1h%}% in the  last hour</span>
+                <span style="color:{%=o.percent_change_color%}">{%=o.percent_change_24h%}% in the  24 hours</span>
             </div>
             <div class="custom">
                 Volume (24h): {%=o.volume_usd%} USD

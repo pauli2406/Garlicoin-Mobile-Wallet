@@ -162,7 +162,7 @@ function getUsdValue() {
             USDPRICE = data[0].price_usd;
             RANK = data[0].rank;
             var priceSpan;
-            if(parseFloat(data[0].percent_change_1h)< 0){
+            if(parseFloat(data[0].percent_change_24h)< 0){
                 color = "red";
             }else{
                 color = "green";
