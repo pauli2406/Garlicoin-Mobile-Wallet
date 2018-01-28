@@ -17,7 +17,7 @@ Functions:
 </p>
 
 ### Install
-Just download the apk and install it.
+Just download and install the newest release
 It is not in the Playstore yet. 
 Reason: Development not finished.
 
