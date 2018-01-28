@@ -32,9 +32,9 @@ Still, the code should be working already, it just needs to be built.
 
 ### Screenshots
 <p align="center">
-  <img src="https://i.imgur.com/FK9mB9u.jpg" width="250"/>
-  <img src="https://i.imgur.com/hNoA8p6.jpg" width="250"/>
-  <img src="https://i.imgur.com/9GiBMGS.jpg" width="250"/>
+  <img src="hhttps://i.imgur.com/IKRCvpG.jpg" width="250"/>
+  <img src="https://i.imgur.com/MYV7VsI.jpg" width="250"/>
+  <img src="https://i.imgur.com/ILW1idH.jpg" width="250"/>
 </p>
 
 ### Contribute
