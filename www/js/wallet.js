@@ -1,11 +1,12 @@
 /**************************************Globals*********************************************************************************************/
 var USDPRICE;
 var RANK;
+var base_uri = "https://garli.co.in";
 
 /******************************************Crawl Data from the Explorer********************************************************************/
 function getData() {
     var wallet = window.localStorage.getItem("walletAddress");
-    $.get('https://explorer.grlc-bakery.fun/address/' + wallet, function (response) {
+    $.get(base_uri+'/address/' + wallet, function (response) {
         var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
         subbed = subbed.substring(subbed.indexOf('<tbody>') + 1);
         subbed = subbed.substring(0, subbed.indexOf('</tbody>'));
@@ -90,7 +91,7 @@ function addPagination() {
 
 function getBalance() {
     var walletAddress = window.localStorage.getItem("walletAddress");
-    var url = "https://explorer.grlc-bakery.fun/ext/getaddress/" + walletAddress;
+    var url = base_uri + "/ext/getaddress/" + walletAddress;
     $.ajax({
         url: url,
         type: "GET",
@@ -114,7 +115,7 @@ function getBalance() {
 }
 
 function getBlockDifficulty() {
-    var url = "https://explorer.grlc-bakery.fun/api/getdifficulty";
+    var url = base_uri + "/api/getdifficulty";
     $.ajax({
         url: url,
         type: "GET",
@@ -131,7 +132,7 @@ function getBlockDifficulty() {
 }
 
 function getBlockcount() {
-    var url = "https://explorer.grlc-bakery.fun/api/getblockcount";
+    var url = base_uri + "/api/getblockcount";
     $.ajax({
         url: url,
         type: "GET",
@@ -151,7 +152,6 @@ function getRank() {
 }
 
 function getUsdValue() {
-    debugger;
     var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     $.ajax({
         url: url,
