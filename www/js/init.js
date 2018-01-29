@@ -1,10 +1,10 @@
 window.onload = function () {
     getSavedAddresses();
     addAddressOnClick();
+    scanQRCode();
 };
 function addAddressOnClick() {
     $('#btnAddAddress').click(function () {
-        debugger;
         var address = $('#inAddAddress').val();
         var data = {address: address};
         var entries = document.getElementById("address_list").innerHTML;
@@ -17,6 +17,32 @@ function addAddressOnClick() {
         });
         window.localStorage.setItem("walletAddress",address);
     })
+}
+
+function scanQRCode() {
+    $('#btnScanQr').click(function () {
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                window.localStorage.setItem("walletAddress", result.text);
+                document.location.href = "wallet.html";
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            },
+            {
+                preferFrontCamera: false, // iOS and Android
+                showFlipCameraButton: true, // iOS and Android
+                showTorchButton: true, // iOS and Android
+                torchOn: false, // Android, launch with the torch switched on (if available)
+                saveHistory: true, // Android, save scan history (default false)
+                prompt: "Place a barcode with your wallet address inside the scan area", // Android
+                resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                disableAnimations: true, // iOS
+                disableSuccessBeep: false // iOS and Android
+            }
+        );
+    });
 }
 
 function getSavedAddresses() {
