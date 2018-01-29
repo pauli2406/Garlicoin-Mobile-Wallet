@@ -7,7 +7,9 @@
   "displayName": "GarlicoinAndroidWallet",
   "dependencies": {
     "cordova-android": "^7.0.0",
+    "cordova-browser": "^5.0.3",
     "cordova-ios": "^4.5.4",
+    "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-console": "~1.0.3",
     "cordova-plugin-dialogs": "~1.2.1",
     "cordova-plugin-inappbrowser": "~2.0.1 ",
@@ -26,10 +28,13 @@
       "cordova-plugin-dialogs": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-inappbrowser": {},
-      "phonegap-plugin-barcodescanner": {}
+      "phonegap-plugin-barcodescanner": {
+        "CAMERA_USAGE_DESCRIPTION": " "
+      }
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   },
   "repository": {

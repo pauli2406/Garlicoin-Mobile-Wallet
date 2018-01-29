@@ -5,9 +5,6 @@
         Garlicoin Android Wallet
     </description>
     <author email="mpochert@gmail.com" />
-    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
-        <string>To scan barcodes</string>
-    </edit-config>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
@@ -42,6 +39,12 @@
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~2.0.1 " />
-    <plugin name="phonegap-plugin-barcodescanner"/>
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>To scan barcodes</string>
+    </edit-config>
     <engine name="android" spec="~7.0.0"/>
+    <engine name="browser" spec="~5.0.3"/>
+    <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" "/>
+    </plugin>
 </widget>
