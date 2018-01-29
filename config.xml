@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.garlicoin.androidwallet" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Garlicoin_Android_Wallet</name>
+    <name>Garlicoin Wallet</name>
     <description>
-        Garlicoin Android Wallet
+        Garlicoin Wallet
     </description>
     <author email="mpochert@gmail.com" />
     <content src="index.html" />
