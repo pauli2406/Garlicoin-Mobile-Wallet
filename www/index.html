@@ -81,17 +81,20 @@
 <script type="text/javascript" src="js/init.js"></script>
 <script type="text/javascript" src="js/tmpl.min.js"></script>
 
+<script>
 
+</script>
 </body>
 </html>
+
 <script type="text/x-tmpl" id="tmpl-transList">
-        <div class="listItems" id="div_list_item">
+        <div class="listItems" id="div_{%=o.address%}">
             <li class="list-group-item yellow-bg">
                 <div id="walletAddress">{%=o.address%}</div>
                 <span class="input-group-btn">
                     <span>
-                        <button id="btn_delete" class='btn btn-danger li_buttons' type="button">delete</button>
-                        <input id="btn_goTo" type="button" class='btn btn-info li_buttons' value="submit"/>
+                        <button id="btn_del_{%=o.address%}" class='btn btn-danger li_buttons' onclick="delItem(this.id)" type="button">delete</button>
+                        <input id="btn_go_{%=o.address%}" type="button" class='btn btn-info li_buttons' onclick="goTo(this.id)" value="submit"/>
                     </span>
                 </span>
             </li>

@@ -5,7 +5,7 @@ var base_uri = "https://garli.co.in";
 
 //This only should be a temporary way until a good API is found to get these informations!
 function getData() {
-    var wallet = window.localStorage.getItem("walletAddress");
+    var wallet = window.localStorage.getItem("selectedWallet");
     $.get(base_uri+'/address/' + wallet, function (response) {
         //Split and substring the data from the crawler to our Array with informations
         var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
@@ -94,7 +94,7 @@ function addPagination() {
 
 function getBalance(usdPrice) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
-    var walletAddress = window.localStorage.getItem("walletAddress");
+    var walletAddress = window.localStorage.getItem("selectedWallet");
     var url = base_uri + "/ext/getaddress/" + walletAddress;
     $.ajax({
         url: url,
