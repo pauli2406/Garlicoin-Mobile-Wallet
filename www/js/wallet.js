@@ -1,12 +1,13 @@
 /**************************************Globals*********************************************************************************************/
-var USDPRICE;
-var RANK;
 var base_uri = "https://garli.co.in";
 
 /******************************************Crawl Data from the Explorer********************************************************************/
+
+//This only should be a temporary way until a good API is found to get these informations!
 function getData() {
     var wallet = window.localStorage.getItem("walletAddress");
     $.get(base_uri+'/address/' + wallet, function (response) {
+        //Split and substring the data from the crawler to our Array with informations
         var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
         subbed = subbed.substring(subbed.indexOf('<tbody>') + 1);
         subbed = subbed.substring(0, subbed.indexOf('</tbody>'));
@@ -49,10 +50,12 @@ function getData() {
                 "date": date
             });
         }
+        //Build the table
         document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
     });
 }
 
+//Not used for now. Limited to 25 transactions
 function addPagination() {
     var totalRows = $('#transTable').find('tbody tr:has(td)').length;
     var recordPerPage = 10;
@@ -89,7 +92,8 @@ function addPagination() {
 
 /**********************************************************AJAX-Calls********************************************************************/
 
-function getBalance() {
+function getBalance(usdPrice) {
+    //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("walletAddress");
     var url = base_uri + "/ext/getaddress/" + walletAddress;
     $.ajax({
@@ -100,7 +104,7 @@ function getBalance() {
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
-            value = precisionRound(balance * USDPRICE,2);
+            value = precisionRound(balance * usdPrice,2);
 
             var result = {
                 priceInUsd: value,
@@ -115,6 +119,7 @@ function getBalance() {
 }
 
 function getBlockDifficulty() {
+    //get current Difficulty from the explorer API
     var url = base_uri + "/api/getdifficulty";
     $.ajax({
         url: url,
@@ -132,6 +137,7 @@ function getBlockDifficulty() {
 }
 
 function getBlockcount() {
+    //get current Blockcount from the explorer API
     var url = base_uri + "/api/getblockcount";
     $.ajax({
         url: url,
@@ -147,10 +153,6 @@ function getBlockcount() {
     });
 }
 
-function getRank() {
-    document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", RANK);
-}
-
 function getUsdValue() {
     var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     $.ajax({
@@ -159,8 +161,6 @@ function getUsdValue() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            USDPRICE = data[0].price_usd;
-            RANK = data[0].rank;
             var priceSpan;
             if(parseFloat(data[0].percent_change_24h)< 0){
                 color = "red";
@@ -178,9 +178,11 @@ function getUsdValue() {
                 percent_change_24h: data[0].percent_change_24h
             };
 
-            getBalance();
-            getRank();
+            //build the balance infobox
+            getBalance(data[0].price_usd);
 
+            //Fill the Infobox with the current Rank and add the template
+            document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", data[0].rank);
             document.getElementById("usdValue").innerHTML = tmpl("tmpl-usdValue", result);
         },
         error: function (data) {
@@ -221,8 +223,4 @@ window.onload = function () {
     $('#reloadTrans').click(function () {
         getData();
     });
-    $('#testBtn').click(function () {
-        var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
-        ref.show();
-    })
 };
