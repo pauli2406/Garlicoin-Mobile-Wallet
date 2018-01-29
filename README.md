@@ -18,7 +18,7 @@ and much more to come.
 
 ### Download the already built version here
 Android Version:
-[Download](https://github.com/pauli2406/Garlicoin-Mobile-Wallet/releases/tag/1.0.0)
+[Download](https://github.com/pauli2406/Garlicoin-Mobile-Wallet/releases/)
 
 ---
 ### Platform
