@@ -6,12 +6,12 @@ This is a Garlicoin Wallet for Android. Created with Phonegap.
 This is no standalone Wallet yet. An existing Wallet Address is needed. 
 
 ---
-#### It allows you to watch:
+#### It allows you to:
 
 - save your Wallet address (at the moment only one)
-- your amount of Garlic and what it´s worth
-- shows your last 25 transactions and their status
-- some mining and blockchain details like difficulty 
+- watch your amount of Garlic and what it´s worth
+- see your last 25 transactions and their status
+- observe some mining and blockchain details like difficulty 
 and much more to come.
 
 ---
@@ -26,7 +26,7 @@ Android Version:
 For now it is only available for Android Phones. 
 
 Unfortunately, I don´t own an Apple Developer License to build the version for IOS.
-Still, the code should be working already, it just needs to be built.
+Still, the code should be working already, it just needs to be build.
 
 ----
 
@@ -38,7 +38,7 @@ Still, the code should be working already, it just needs to be built.
 </p>
 
 ### Contribute
-If you want to contribute to this project. These are the instructions to let the program run:
+If you want to contribute to this project these are the instructions to let the program run:
 
 #### Requirements
 
