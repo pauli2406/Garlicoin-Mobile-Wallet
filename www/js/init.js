@@ -8,14 +8,8 @@ function addAddressOnClick() {
         var address = $('#inAddAddress').val();
         var data = {address: address};
         var entries = document.getElementById("address_list").innerHTML;
-        document.getElementById("address_list").innerHTML = tmpl("tmpl-transList", data);
-        $('#btn_delete').click(function () {
-            deleteListEntry();
-        });
-        $('#btn_goTo').click(function () {
-            document.location.href = "wallet.html";
-        });
-        window.localStorage.setItem("walletAddress",address);
+        document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
+        window.localStorage.setItem(address, address);
     })
 }
 
@@ -23,7 +17,8 @@ function scanQRCode() {
     $('#btnScanQr').click(function () {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-                window.localStorage.setItem("walletAddress", result.text);
+                window.localStorage.setItem(result.text, result.text);
+                window.localStorage.setItem("selectedWallet", result.text);
                 document.location.href = "wallet.html";
             },
             function (error) {
@@ -47,25 +42,38 @@ function scanQRCode() {
 
 function getSavedAddresses() {
     for (i = 0; i < window.localStorage.length; i++) {
-        var address = window.localStorage.getItem("walletAddress");
-        var data = {address: address};
-        if(!isEmpty(address)) {
-            document.getElementById("address_list").innerHTML = tmpl("tmpl-transList", data);
-            $('#btn_goTo').click(function () {
-                document.location.href = "wallet.html";
-            });
-            $('#btn_delete').click(function () {
-                deleteListEntry();
-            });
+        var savedWallets = window.localStorage;
+        for (i = 0; i < savedWallets.length; i++) {
+            var addr = savedWallets.key(i);
+            if (!isEmpty(addr) && (addr.startsWith("G")) || addr.startsWith("g")) {
+                var data = {address: addr};
+                var entries = document.getElementById("address_list").innerHTML;
+                document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
+                var address = addr;
+            }
         }
     }
 }
 
-function deleteListEntry() {
+function goTo(id) {
+    address = id;
+    address = address.substring(address.indexOf('o_') + 2);
+    window.localStorage.setItem("selectedWallet", address);
+    document.location.href = "wallet.html";
+}
+
+function delItem(id) {
+    address = id;
+    address = address.substring(address.indexOf('l_') + 2);
+    deleteListEntry(address);
+    window.localStorage.removeItem(address);
+}
+
+function deleteListEntry(address) {
     //delete visually
-    $("#div_list_item").remove();
+    $("#div_" + address).remove();
     //remove from local storage
-    window.localStorage.removeItem("walletAddress");
+    window.localStorage.removeItem(address);
 }
 
 function isEmpty(str) {
