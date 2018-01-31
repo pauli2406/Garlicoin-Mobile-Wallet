@@ -1,4 +1,7 @@
 window.onload = function () {
+    MobileAccessibility.usePreferredTextZoom(false);
+    MobileAccessibility.setTextZoom(75);
+
     getSavedAddresses();
     addAddressOnClick();
     scanQRCode();

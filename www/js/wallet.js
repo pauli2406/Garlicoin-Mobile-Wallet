@@ -216,6 +216,8 @@ Number.prototype.formatMoney = function(c, d, t){
 
 
 window.onload = function () {
+    MobileAccessibility.usePreferredTextZoom(false);
+    MobileAccessibility.setTextZoom(75);
     getUsdValue();
     getData();
     getBlockDifficulty();
