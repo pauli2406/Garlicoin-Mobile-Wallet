@@ -34,6 +34,7 @@
             <div class="row">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
+                    <input type="text" id="inNickname" class="form-control" placeholder="add an Nickname">
                     <div class="input-group">
                         <input type="text" id="inAddAddress" class="form-control" placeholder="new wallet address">
                         <span class="input-group-btn">
@@ -43,6 +44,21 @@
                     </div>
                 </div>
             </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col-lg-10">-->
+                    <!--<input type="text" id="inNickname" class="form-control" placeholder="add an Nickname">-->
+                <!--</div>-->
+                <!--<div class="input-append">-->
+                    <!--<div class="col-lg-10">-->
+                        <!--<input type="text" id="inAddAddress" class="form-control" placeholder="new wallet address">-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-2">-->
+                        <!--<button class="btn btn-secondary" id="btnScanQr" type="button">Scan</button>-->
+                        <!--<button class="btn btn-secondary" id="btnAddAddress" type="button">Add </button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-default">
@@ -64,9 +80,6 @@
                                onclick="cordova.InAppBrowser.open('https://garli.co.in', '_blank');return false;"><span><img
                                      height="25px" src="img/garlicoin_icon_light.png"></span></a>
                             <span style="padding-right: 5px"></span>
-                            <div style="float: right">
-                                Donate: GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -90,6 +103,10 @@
 <script type="text/x-tmpl" id="tmpl-transList">
         <div class="listItems" id="div_{%=o.address%}">
             <li class="list-group-item yellow-bg">
+                {% if (o.nickname) { %}
+                    <div id="inNickname">Wallet: {%=o.nickname%}</div>
+                {% } else { %}
+                {% } %}
                 <div id="walletAddress">{%=o.address%}</div>
                 <span class="input-group-btn">
                     <span>

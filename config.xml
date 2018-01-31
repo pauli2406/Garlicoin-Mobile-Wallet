@@ -19,10 +19,10 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="ios">
-        <icon height="180" src="img/garlicoin_wallet_final.png" width="180"/>
+        <icon height="180" src="img/garlicoin_wallet_final.png" width="180" />
     </platform>
     <platform name="android">
-        <icon height="180" src="/img/garlicoin_wallet_final.png" width="180"/>
+        <icon height="180" src="/img/garlicoin_wallet_final.png" width="180" />
     </platform>
     <platform name="android">
         <allow-intent href="market:*" />
@@ -42,9 +42,10 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
         <string>To scan barcodes</string>
     </edit-config>
-    <engine name="android" spec="~7.0.0"/>
-    <engine name="browser" spec="~5.0.3"/>
+    <engine name="android" spec="~7.0.0" />
+    <engine name="browser" spec="~5.0.3" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value=" "/>
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="phonegap-plugin-mobile-accessibility" spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" />
 </widget>
