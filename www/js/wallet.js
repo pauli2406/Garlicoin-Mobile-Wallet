@@ -1,5 +1,8 @@
 /**************************************Globals*********************************************************************************************/
-var base_uri = "https://garli.co.in";
+// var base_uri = "https://garli.co.in";
+var base_uri = "https://explorer.garlicoin.io";
+// var base_uri = "https://explorer.grlc-bakery.fun/";
+
 
 /******************************************Crawl Data from the Explorer********************************************************************/
 
@@ -101,6 +104,7 @@ function getBalance(usdPrice) {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async:true,
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
@@ -126,6 +130,7 @@ function getBlockDifficulty() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async:true,
         success: function (data) {
             data = precisionRound(data, 2);
             document.getElementById("blockDiff").innerHTML = tmpl("tmpl-blockDiff", data);
@@ -144,6 +149,7 @@ function getBlockcount() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async:true,
         success: function (data) {
             document.getElementById("blockCount").innerHTML = tmpl("tmpl-blockCount", data);
         },
@@ -160,6 +166,7 @@ function getUsdValue() {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        async:true,
         success: function (data) {
             var priceSpan;
             if(parseFloat(data[0].percent_change_24h)< 0){
@@ -216,8 +223,6 @@ Number.prototype.formatMoney = function(c, d, t){
 
 
 window.onload = function () {
-    MobileAccessibility.usePreferredTextZoom(false);
-    MobileAccessibility.setTextZoom(75);
     getUsdValue();
     getData();
     getBlockDifficulty();

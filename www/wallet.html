@@ -12,6 +12,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/wallet.css" rel="stylesheet"/>
     <link href="css/style-responsive.css" rel="stylesheet"/>
     <link href="css/font-awesome.min.css" rel="stylesheet"/>
 </head>
@@ -59,9 +60,6 @@
                        onclick="cordova.InAppBrowser.open('https://garli.co.in', '_blank');return false;"><span><img
                             height="25px" src="img/garlicoin_icon_light.png"></span></a>
                     <span style="padding-right: 5px"></span>
-                    <div style="float: right">
-                        Donate: GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC
-                    </div>
                 </div>
             </div>
         </section>
@@ -78,12 +76,13 @@
 </html>
 
 <script type="text/x-tmpl" id="tmpl-lastTrans">
+<div style="overflow-x:auto;">
     <table id=transactionTable class="table bootstrap-datatable countries">
         <thead>
         <tr>
-            <th>Address</th>
+            <th>TxAddress</th>
             <th>Amount</th>
-            <!--<th>Status</th>-->
+            <th>Status</th>
             <th>Date</th>
         </tr>
         </thead>
@@ -92,12 +91,13 @@
         <tr>
             <td>{%=o.last_txs[i].transactionId%}</td>
             <td>{%=o.last_txs[i].amount%}</td>
-            <!--<td>{%=o.last_txs[i].status%}</td>-->
+            <td>{%=o.last_txs[i].status%}</td>
             <td>{%=o.last_txs[i].date%}</td>
         </tr>
         {% } %}
         </tbody>
     </table>
+</div>
 </script>
 
 <script type="text/x-tmpl" id="tmpl-blockCount">
@@ -105,7 +105,7 @@
         <div class="info-box green-bg">
                 <i class="fa fa-cubes"></i>
                 <div class="count">{%=o%}</div>
-                <div class="title">Total blocks mined</div>
+                <div class="custom">Total blocks mined</div>
         </div>
     </div>
 </script>
@@ -113,9 +113,11 @@
 <script type="text/x-tmpl" id="tmpl-blockDiff">
     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <div class="info-box blue-bg">
-            <i class="fa fa-cloud-download"></i>
-            <div class="count">{%=o%}</div>
-            <div class="title">Current difficulty</div>
+            <div class="row">
+                <i class="fa fa-cloud-download"></i>
+                <div class="count">{%=o%}</div>
+                <div class="custom">Current difficulty</div>
+            </div>
         </div>
     </div>
 </script>
@@ -135,7 +137,7 @@
         <div class="info-box lime-bg">
             <i class="fa fa-list-ol"></i>
             <div class="count">{%=o%}</div>
-            <div class="title">rank of all Cryptos</div>
+            <div class="custom">rank of all Cryptos</div>
         </div>
     </div>
 </script>
