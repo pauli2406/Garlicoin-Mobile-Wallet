@@ -89,7 +89,9 @@ function getSavedAddresses() {
             }
         }
     }
-    $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
+    if(!isEmpty(window.localStorage.getItem("explorer"))){
+        $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
+    }
 }
 
 //Functions for the list elements
