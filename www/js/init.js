@@ -44,7 +44,7 @@ function scanQRCode() {
     $('#btnScanQr').click(function () {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-                if(result.success) {
+                if(!result.cancelled) {
                     var saveArray = new Array();
                     var nickname = $('#inNickname').val();
                     saveArray.push({address: result.text, nickname: nickname});
