@@ -1,6 +1,5 @@
 window.onload = function () {
     checkTextZoom();
-    window.localStorage.setItem("explorer","https://garli.co.in");
     getSavedAddresses();
     addAddressOnClick();
     scanQRCode();

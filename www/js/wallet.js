@@ -1,7 +1,9 @@
 /**************************************Globals*********************************************************************************************/
-var base_uri = window.localStorage.getItem("explorer");
-
-
+if(!isEmpty(window.localStorage.getItem("explorer"))){
+    var base_uri = window.localStorage.getItem("explorer");
+}else{
+    var base_uri = "https://garli.co.in";
+}
 /******************************************Crawl Data from the Explorer********************************************************************/
 
 //This only should be a temporary way until a good API is found to get these informations!
