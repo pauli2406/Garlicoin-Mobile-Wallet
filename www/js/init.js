@@ -1,9 +1,12 @@
 window.onload = function () {
-    checkTextZoom();
-    getSavedAddresses();
-    addAddressOnClick();
-    scanQRCode();
-    saveSelectedExplorer();
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        checkTextZoom();
+        getSavedAddresses();
+        addAddressOnClick();
+        scanQRCode();
+        saveSelectedExplorer();
+    }
 };
 
 
