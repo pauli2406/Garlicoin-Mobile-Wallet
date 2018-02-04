@@ -44,12 +44,15 @@ function scanQRCode() {
     $('#btnScanQr').click(function () {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-                var saveArray = new Array();
-                var nickname = $('#inNickname').val();
-                saveArray.push({address: result.text, nickname: nickname });
-                window.localStorage.setItem("selectedWallet", result.text);
-                window.localStorage.setArray(result.text,saveArray);
-                document.location.href = "wallet.html";
+                if(result.success) {
+                    var saveArray = new Array();
+                    var nickname = $('#inNickname').val();
+                    saveArray.push({address: result.text, nickname: nickname});
+                    window.localStorage.setItem("selectedWallet", result.text);
+                    window.localStorage.setArray(result.text, saveArray);
+                    document.location.href = "wallet.html";
+                }
+
             },
             function (error) {
                 alert("Scanning failed: " + error);
