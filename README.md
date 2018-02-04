@@ -7,8 +7,8 @@ This is not a standalone Wallet yet. An existing Wallet is required.
 
 ---
 ### It allows you to:
-- save your Wallet address (at the moment only one)
-- scan your Wallets QR-Code
+- save multiple Wallet addresses with nicknames 
+- scan your Wallets QR-Code to import it
 - watch your amount and the value of your Garlic
 - see your last 25 transactions and their status
 - observe mining and blockchain details
@@ -17,7 +17,7 @@ This is not a standalone Wallet yet. An existing Wallet is required.
 
 ### Download the prebuild built version here
 Android Version:
-[Download](https://github.com/pauli2406/Garlicoin-Mobile-Wallet/releases/tag/v1.0.3)
+[Download](https://github.com/pauli2406/Garlicoin-Mobile-Wallet/releases/tag/v1.1.0)
 
 ---
 ### Platform
