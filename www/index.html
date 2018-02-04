@@ -49,11 +49,11 @@
                 <div class="col-md-12 col-md-offset-0">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                                <ul class="list-group">
-                                    <div id="address_list">
+                            <ul class="list-group">
+                                <div id="address_list">
 
-                                    </div>
-                                </ul>
+                                </div>
+                            </ul>
                         </div>
                     </div>
                     <div class="row">
@@ -66,6 +66,15 @@
                                onclick="cordova.InAppBrowser.open('https://garli.co.in', '_blank');return false;"><span><img
                                      height="25px" src="img/garlicoin_icon_light.png"></span></a>
                             <span style="padding-right: 5px"></span>
+                            <div style="float: right;" class="col-lg-4">
+                                <div class="form-group">
+                                    <select style=" padding-bottom: 5px;" class="form-control" id="explorerSelect">
+                                        <option value="https://garli.co.in" selected>Official Explorer</option>
+                                        <option value="https://explorer.grlc-bakery.fun">Bakery Explorer</option>
+                                        <option value="https://explorer.garlicoin.io">Garlicoin Explorer</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,9 +89,6 @@
 <script type="text/javascript" src="js/init.js"></script>
 <script type="text/javascript" src="js/tmpl.min.js"></script>
 
-<script>
-
-</script>
 </body>
 </html>
 

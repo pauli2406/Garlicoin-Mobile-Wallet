@@ -1,7 +1,5 @@
 /**************************************Globals*********************************************************************************************/
-// var base_uri = "https://garli.co.in";
-var base_uri = "https://explorer.garlicoin.io";
-// var base_uri = "https://explorer.grlc-bakery.fun/";
+var base_uri = window.localStorage.getItem("explorer");
 
 
 /******************************************Crawl Data from the Explorer********************************************************************/
@@ -160,6 +158,7 @@ function getBlockcount() {
 }
 
 function getUsdValue() {
+    //get current USD Value from coinmarketcap
     var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     $.ajax({
         url: url,

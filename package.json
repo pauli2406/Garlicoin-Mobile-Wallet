@@ -14,6 +14,7 @@
     "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
     "cordova-plugin-dialogs": "~1.2.1",
     "cordova-plugin-inappbrowser": "~2.0.1 ",
+    "cordova-plugin-listpicker": "^2.2.2",
     "cordova-plugin-network-information": "git+https://github.com/apache/cordova-plugin-network-information.git",
     "cordova-plugin-statusbar": "~2.2.0",
     "cordova-plugin-whitelist": "~1.2.1",
@@ -34,7 +35,8 @@
       "phonegap-plugin-barcodescanner": {
         "CAMERA_USAGE_DESCRIPTION": " "
       },
-      "phonegap-plugin-mobile-accessibility": {}
+      "phonegap-plugin-mobile-accessibility": {},
+      "cordova-plugin-listpicker": {}
     },
     "platforms": [
       "android",

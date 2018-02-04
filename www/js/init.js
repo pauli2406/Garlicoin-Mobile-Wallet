@@ -1,22 +1,30 @@
-var resBool = false;
-
 window.onload = function () {
-    if(!resBool){
-        checkTextZoom();
-    }
+    checkTextZoom();
+    window.localStorage.setItem("explorer","https://garli.co.in");
     getSavedAddresses();
     addAddressOnClick();
     scanQRCode();
+    saveSelectedExplorer();
 };
 
 
 function checkTextZoom() {
+//change the Text Zoom to 75% to remve rezising issues
     if(window.MobileAccessibility){
         window.MobileAccessibility.setTextZoom(75);
     }
 }
 
+
+function saveSelectedExplorer() {
+//save the selected explorer in the localStorage
+    $('#explorerSelect').on('change', function() {
+        window.localStorage.setItem("explorer",this.value);
+    })
+}
+
 function addAddressOnClick() {
+//Save and add a new address list element
     $('#btnAddAddress').click(function () {
         var address = $('#inAddAddress').val();
         var nickname = $('#inNickname').val();
@@ -30,6 +38,7 @@ function addAddressOnClick() {
 }
 
 function scanQRCode() {
+//scan a QR-Code, save the address, if nickname is set save the nickname too. Change view to the wallet
     $('#btnScanQr').click(function () {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
@@ -60,6 +69,7 @@ function scanQRCode() {
 }
 
 function getSavedAddresses() {
+//retrieve all saved addresses from the local storage and add them to the list
     for (i = 0; i < window.localStorage.length; i++) {
         var savedWallets = window.localStorage;
         for (i = 0; i < savedWallets.length; i++) {
@@ -74,8 +84,10 @@ function getSavedAddresses() {
             }
         }
     }
+    $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
 }
 
+//Functions for the list elements
 function goTo(id) {
     address = id;
     address = address.substring(address.indexOf('o_') + 2);
@@ -97,6 +109,8 @@ function deleteListEntry(address) {
     window.localStorage.removeItem(address);
 }
 
+
+//UTILS
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }

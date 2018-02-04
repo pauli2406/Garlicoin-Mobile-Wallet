@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.garlicoin.androidwallet" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.garlicoin.androidwallet" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Garlicoin Wallet</name>
     <description>
         Garlicoin Wallet
@@ -31,6 +31,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>To scan barcodes</string>
+    </edit-config>
     <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
     <plugin name="phonegap-plugin-push" spec="~1.8.0">
         <variable name="SENDER_ID" value="XXXXXXX" />
@@ -39,13 +42,11 @@
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~2.0.1 " />
-    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-        <string>To scan barcodes</string>
-    </edit-config>
-    <engine name="android" spec="~7.0.0" />
-    <engine name="browser" spec="~5.0.3" />
-    <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8">
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.2">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="phonegap-plugin-mobile-accessibility" spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" />
+    <plugin name="phonegap-plugin-mobile-accessibility" spec="git+https://github.com/phonegap/phonegap-mobile-accessibility.git" />
+    <plugin name="cordova-plugin-listpicker" spec="^2.2.2" />
+    <engine name="android" spec="^7.0.0" />
+    <engine name="browser" spec="^5.0.3" />
 </widget>
