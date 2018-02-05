@@ -20,7 +20,8 @@ function getData() {
             success: function (result) {
                 var data = {
                     last_txs: [],
-                    details: false
+                    details: false,
+                    explorerUrl: "https://garlicinsight.com/"
                 };
                 for (i = 0; i < result.transactions.length && i < 24; i++) {
                     data.last_txs.push({

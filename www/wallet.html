@@ -86,6 +86,7 @@
                 <th>Status</th>
                 <th>Date</th>
             {% } else { %}
+                <th></th>
                 <th>TxAddress</th>
             {% } %}
         </tr>
@@ -99,6 +100,8 @@
                 <td>{%=o.last_txs[i].status%}</td>
                 <td>{%=o.last_txs[i].date%}</td>
             {% } else { %}
+                <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
+                            height="25px" src="img/magnifying_glass.png"></span></a></td>
                 <td>{%=o.last_txs[i].transactionId%}</td>
             {% } %}
         </tr>
