@@ -9,53 +9,81 @@ if(!isEmpty(window.localStorage.getItem("explorer"))){
 //This only should be a temporary way until a good API is found to get these informations!
 function getData() {
     var wallet = window.localStorage.getItem("selectedWallet");
-    $.get(base_uri+'/address/' + wallet, function (response) {
-        //Split and substring the data from the crawler to our Array with informations
-        var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
-        subbed = subbed.substring(subbed.indexOf('<tbody>') + 1);
-        subbed = subbed.substring(0, subbed.indexOf('</tbody>'));
-        subbed = subbed.substring(subbed.indexOf('href') + 1);
-        var dataArray = subbed.split("href=");
-        var transId = dataArray[0].substring();
-        var data = {
-            last_txs: []
-        };
+    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
+        var url = base_uri + 'addr/'+wallet;
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async:true,
+            success: function (result) {
+                var data = {
+                    last_txs: []
+                };
+                for (i = 0; i < result.transactions.length && i < 24; i++) {
+                    data.last_txs.push({
+                        "transactionId": result.transactions[i],
+                        "status": 'no info',
+                        "amount": 'no info',
+                        "date": 'no info'
+                    });
+                }
+                document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
+            },
+            error: function (result) {
+                throw "Es ist ein Fehler aufgetreten."
+            }
+        });
+    }else {
+        $.get(base_uri + '/address/' + wallet, function (response) {
+            //Split and substring the data from the crawler to our Array with informations
+            var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
+            subbed = subbed.substring(subbed.indexOf('<tbody>') + 1);
+            subbed = subbed.substring(0, subbed.indexOf('</tbody>'));
+            subbed = subbed.substring(subbed.indexOf('href') + 1);
+            var dataArray = subbed.split("href=");
+            var transId = dataArray[0].substring();
+            var data = {
+                last_txs: []
+            };
 
-        for (i = 0; i < dataArray.length && i < 24; i++) {
-            var info = dataArray[i].split(">");
-            var transactionId = '';
-            var status = '';
-            var amount = '';
-            var date = '';
+            for (i = 0; i < dataArray.length && i < 24; i++) {
+                var info = dataArray[i].split(">");
+                var transactionId = '';
+                var status = '';
+                var amount = '';
+                var date = '';
 
-            if (!isEmpty(info[1])) {
-                transactionId = info[1].substring(0, info[1].indexOf('</a'));
-                //for mobile it is too long so cut it to 8 digit
-                transactionId = transactionId.substring(0, 10);
-                transactionId = transactionId + '..';
-            }
-            if (!isEmpty(info[3])) {
-                status = info[3].substring(info[3].indexOf('<td class="') + 1);
-                status = status.substring(status.indexOf('"') + 1);
-                status = status.substring(0, status.indexOf('"'));
-            }
-            if (!isEmpty(info[4])) {
-                amount = info[4].substring(0, info[4].indexOf('</td'));
-            }
-            if (!isEmpty(info[8])) {
-                date = info[8].substring(0, info[8].indexOf('</td'));
-            }
+                if (!isEmpty(info[1])) {
+                    transactionId = info[1].substring(0, info[1].indexOf('</a'));
+                    //for mobile it is too long so cut it to 8 digit
+                    transactionId = transactionId.substring(0, 10);
+                    transactionId = transactionId + '..';
+                }
+                if (!isEmpty(info[3])) {
+                    status = info[3].substring(info[3].indexOf('<td class="') + 1);
+                    status = status.substring(status.indexOf('"') + 1);
+                    status = status.substring(0, status.indexOf('"'));
+                }
+                if (!isEmpty(info[4])) {
+                    amount = info[4].substring(0, info[4].indexOf('</td'));
+                }
+                if (!isEmpty(info[8])) {
+                    date = info[8].substring(0, info[8].indexOf('</td'));
+                }
 
-            data.last_txs.push({
-                "transactionId": transactionId,
-                "status": status,
-                "amount": amount,
-                "date": date
-            });
-        }
-        //Build the table
-        document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
-    });
+                data.last_txs.push({
+                    "transactionId": transactionId,
+                    "status": status,
+                    "amount": amount,
+                    "date": date
+                });
+            }
+            //Build the table
+            document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
+        });
+    }
 }
 
 //Not used for now. Limited to 25 transactions
@@ -98,7 +126,16 @@ function addPagination() {
 function getBalance(usdPrice) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("selectedWallet");
-    var url = base_uri + "/ext/getaddress/" + walletAddress;
+    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
+        var url = base_uri + 'addr/'+walletAddress;
+        balanceAjax(url,usdPrice);
+    }else{
+        var url = base_uri + "/ext/getaddress/" + walletAddress;
+        balanceAjax(url,usdPrice);
+    }
+}
+
+function balanceAjax(url,usdPrice) {
     $.ajax({
         url: url,
         type: "GET",
@@ -124,39 +161,74 @@ function getBalance(usdPrice) {
 
 function getBlockDifficulty() {
     //get current Difficulty from the explorer API
-    var url = base_uri + "/api/getdifficulty";
-    $.ajax({
-        url: url,
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async:true,
-        success: function (data) {
-            data = precisionRound(data, 2);
-            document.getElementById("blockDiff").innerHTML = tmpl("tmpl-blockDiff", data);
-        },
-        error: function (data) {
-            throw "Es ist ein Fehler aufgetreten."
-        }
-    });
+    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
+        var url = base_uri + 'status?q=getDifficulty';
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                data.difficulty = precisionRound(data.difficulty, 2);
+                document.getElementById("blockDiff").innerHTML = tmpl("tmpl-blockDiff", data.difficulty);
+            },
+            error: function (data) {
+                throw "Es ist ein Fehler aufgetreten."
+            }
+        });
+    }else {
+        var url = base_uri + "/api/getdifficulty";
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                data = precisionRound(data, 2);
+                document.getElementById("blockDiff").innerHTML = tmpl("tmpl-blockDiff", data);
+            },
+            error: function (data) {
+                throw "Es ist ein Fehler aufgetreten."
+            }
+        });
+    }
 }
 
 function getBlockcount() {
     //get current Blockcount from the explorer API
-    var url = base_uri + "/api/getblockcount";
-    $.ajax({
-        url: url,
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async:true,
-        success: function (data) {
-            document.getElementById("blockCount").innerHTML = tmpl("tmpl-blockCount", data);
-        },
-        error: function (data) {
-            throw "Es ist ein Fehler aufgetreten."
-        }
-    });
+    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
+        var url = base_uri + 'status?q=getInfo';
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                document.getElementById("blockCount").innerHTML = tmpl("tmpl-blockCount", data.info.blocks);
+            },
+            error: function (data) {
+                throw "Es ist ein Fehler aufgetreten."
+            }
+        });
+    }else {
+        var url = base_uri + "/api/getblockcount";
+        $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                document.getElementById("blockCount").innerHTML = tmpl("tmpl-blockCount", data);
+            },
+            error: function (data) {
+                throw "Es ist ein Fehler aufgetreten."
+            }
+        });
+    }
 }
 
 function getUsdValue() {
@@ -185,7 +257,6 @@ function getUsdValue() {
                 percent_change_1h: data[0].percent_change_1h,
                 percent_change_24h: data[0].percent_change_24h
             };
-
             //build the balance infobox
             getBalance(data[0].price_usd);
 
