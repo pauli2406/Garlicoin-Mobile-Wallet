@@ -80,19 +80,27 @@
     <table id=transactionTable class="table bootstrap-datatable countries">
         <thead>
         <tr>
-            <th>TxAddress</th>
-            <th>Amount</th>
-            <th>Status</th>
-            <th>Date</th>
+            {% if (o.details) { %}
+                <th>TxAddress</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+            {% } else { %}
+                <th>TxAddress</th>
+            {% } %}
         </tr>
         </thead>
         <tbody>
         {% for (var i=0; i<o.last_txs.length; i++) { %}
         <tr>
-            <td>{%=o.last_txs[i].transactionId%}</td>
-            <td>{%=o.last_txs[i].amount%}</td>
-            <td>{%=o.last_txs[i].status%}</td>
-            <td>{%=o.last_txs[i].date%}</td>
+            {% if (o.details) { %}
+                <td>{%=o.last_txs[i].transactionId%}</td>
+                <td>{%=o.last_txs[i].amount%}</td>
+                <td>{%=o.last_txs[i].status%}</td>
+                <td>{%=o.last_txs[i].date%}</td>
+            {% } else { %}
+                <td>{%=o.last_txs[i].transactionId%}</td>
+            {% } %}
         </tr>
         {% } %}
         </tbody>

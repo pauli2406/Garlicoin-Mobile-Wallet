@@ -19,14 +19,15 @@ function getData() {
             async:true,
             success: function (result) {
                 var data = {
-                    last_txs: []
+                    last_txs: [],
+                    details: false
                 };
                 for (i = 0; i < result.transactions.length && i < 24; i++) {
                     data.last_txs.push({
                         "transactionId": result.transactions[i],
-                        "status": 'no info',
-                        "amount": 'no info',
-                        "date": 'no info'
+                        "status": '',
+                        "amount": '',
+                        "date": ''
                     });
                 }
                 document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
@@ -45,7 +46,8 @@ function getData() {
             var dataArray = subbed.split("href=");
             var transId = dataArray[0].substring();
             var data = {
-                last_txs: []
+                last_txs: [],
+                details: true
             };
 
             for (i = 0; i < dataArray.length && i < 24; i++) {
