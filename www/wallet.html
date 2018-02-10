@@ -80,13 +80,17 @@
     <table id=transactionTable class="table bootstrap-datatable countries">
         <thead>
         <tr>
-            {% if (o.details) { %}
-                <th>TxAddress</th>
+            {% if (!o.insight) { %}
+                <th></th>
                 <th>Amount</th>
                 <th>Status</th>
                 <th>Date</th>
+                <th>TxAddress</th>
             {% } else { %}
                 <th></th>
+                <th>Amount</th>
+                <th>Fees</th>
+                <th>Confirmations</th>
                 <th>TxAddress</th>
             {% } %}
         </tr>
@@ -94,14 +98,19 @@
         <tbody>
         {% for (var i=0; i<o.last_txs.length; i++) { %}
         <tr>
-            {% if (o.details) { %}
-                <td>{%=o.last_txs[i].transactionId%}</td>
+            {% if (!o.insight) { %}
+                <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}/tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
+                            height="25px" src="img/magnifying_glass.png"></span></a></td>
                 <td>{%=o.last_txs[i].amount%}</td>
                 <td>{%=o.last_txs[i].status%}</td>
                 <td>{%=o.last_txs[i].date%}</td>
+                <td>{%=o.last_txs[i].transactionId%}</td>
             {% } else { %}
-                <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
+                <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}/tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
                             height="25px" src="img/magnifying_glass.png"></span></a></td>
+                <td>{%=o.last_txs[i].amount%}</td>
+                <td>{%=o.last_txs[i].fees%}</td>
+                <td >{%=o.last_txs[i].confirmations%}</td>
                 <td>{%=o.last_txs[i].transactionId%}</td>
             {% } %}
         </tr>

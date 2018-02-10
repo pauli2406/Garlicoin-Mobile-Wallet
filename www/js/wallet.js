@@ -2,15 +2,15 @@
 if(!isEmpty(window.localStorage.getItem("explorer"))){
     var base_uri = window.localStorage.getItem("explorer");
 }else{
-    var base_uri = "https://garli.co.in";
+    var base_uri = "https://garlicinsight.com";
 }
 /******************************************Crawl Data from the Explorer********************************************************************/
 
 //This only should be a temporary way until a good API is found to get these informations!
 function getData() {
     var wallet = window.localStorage.getItem("selectedWallet");
-    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
-        var url = base_uri + 'addr/'+wallet;
+    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+        var url = base_uri + '/insight-grlc-api/addrs/'+wallet+'/txs?from=0&to=25';
         $.ajax({
             url: url,
             type: "GET",
@@ -18,19 +18,41 @@ function getData() {
             dataType: "json",
             async:true,
             success: function (result) {
+                var wallet = window.localStorage.getItem("selectedWallet");
                 var data = {
                     last_txs: [],
-                    details: false,
-                    explorerUrl: "https://garlicinsight.com/"
+                    insight: true,
+                    explorerUrl: base_uri
                 };
-                for (i = 0; i < result.transactions.length && i < 24; i++) {
-                    data.last_txs.push({
-                        "transactionId": result.transactions[i],
-                        "status": '',
-                        "amount": '',
-                        "date": ''
-                    });
+
+                for(i= 0; i < result.items.length; i++){
+                    var amount = "";
+                    //Transactions spend GRLC
+                    for(n= 0; n < result.items[i].vin.length; n++) {
+                        if(result.items[i].vin[n].addr === wallet ){
+                            data.last_txs.push({
+                                "transactionId": result.items[i].txid,
+                                "confirmations": result.items[i].confirmations,
+                                "amount": "-" + result.items[i].vin[0].value,
+                                "fees": result.items[i].fees
+                            });
+                        }
+                    }
+                    //Transactions recieved GRLC
+                    for(m= 0; m < result.items[i].vout.length; m++) {
+                        if (result.items[i].vout[m].scriptPubKey.addresses[0] === wallet) {
+                            amount = result.items[i].vout[m].value;
+                            data.last_txs.push({
+                                "transactionId": result.items[i].txid,
+                                "confirmations": result.items[i].confirmations,
+                                "amount": "+" + amount,
+                                "fees": result.items[i].fees
+                            });
+                        }
+                    }
+
                 }
+
                 document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
             },
             error: function (result) {
@@ -48,7 +70,8 @@ function getData() {
             var transId = dataArray[0].substring();
             var data = {
                 last_txs: [],
-                details: true
+                insight: false,
+                explorerUrl: base_uri
             };
 
             for (i = 0; i < dataArray.length && i < 24; i++) {
@@ -60,9 +83,6 @@ function getData() {
 
                 if (!isEmpty(info[1])) {
                     transactionId = info[1].substring(0, info[1].indexOf('</a'));
-                    //for mobile it is too long so cut it to 8 digit
-                    transactionId = transactionId.substring(0, 10);
-                    transactionId = transactionId + '..';
                 }
                 if (!isEmpty(info[3])) {
                     status = info[3].substring(info[3].indexOf('<td class="') + 1);
@@ -129,8 +149,8 @@ function addPagination() {
 function getBalance(usdPrice) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("selectedWallet");
-    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
-        var url = base_uri + 'addr/'+walletAddress;
+    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+        var url = base_uri + '/insight-grlc-api/addr/'+walletAddress;
         balanceAjax(url,usdPrice);
     }else{
         var url = base_uri + "/ext/getaddress/" + walletAddress;
@@ -164,8 +184,8 @@ function balanceAjax(url,usdPrice) {
 
 function getBlockDifficulty() {
     //get current Difficulty from the explorer API
-    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
-        var url = base_uri + 'status?q=getDifficulty';
+    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+        var url = base_uri + '/insight-grlc-api/status?q=getDifficulty';
         $.ajax({
             url: url,
             type: "GET",
@@ -201,8 +221,8 @@ function getBlockDifficulty() {
 
 function getBlockcount() {
     //get current Blockcount from the explorer API
-    if(base_uri === "https://garlicinsight.com/insight-grlc-api/"){
-        var url = base_uri + 'status?q=getInfo';
+    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+        var url = base_uri + '/insight-grlc-api/status?q=getInfo';
         $.ajax({
             url: url,
             type: "GET",
@@ -299,6 +319,7 @@ Number.prototype.formatMoney = function(c, d, t){
 
 window.onload = function () {
     getUsdValue();
+    // test();
     getData();
     getBlockDifficulty();
     getBlockcount();
