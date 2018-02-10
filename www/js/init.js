@@ -92,7 +92,6 @@ function getSavedAddresses() {
 
     if(!isEmpty(window.localStorage.getItem("explorer"))){
         //temporary fix for new update.
-        debugger;
         if(window.localStorage.getItem("explorer") === "https://garlicinsight.com/insight-grlc-api/"){
             window.localStorage.setItem("explorer","https://garlicinsight.com");
         }
