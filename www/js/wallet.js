@@ -319,7 +319,6 @@ Number.prototype.formatMoney = function(c, d, t){
 
 window.onload = function () {
     getUsdValue();
-    // test();
     getData();
     getBlockDifficulty();
     getBlockcount();

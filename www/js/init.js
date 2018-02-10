@@ -89,7 +89,19 @@ function getSavedAddresses() {
             }
         }
     }
+
     if(!isEmpty(window.localStorage.getItem("explorer"))){
+        //temporary fix for new update.
+        debugger;
+        if(window.localStorage.getItem("explorer") === "https://garlicinsight.com/insight-grlc-api/"){
+            window.localStorage.setItem("explorer","https://garlicinsight.com");
+        }
+
+        //defaul set the official one if none is selected
+        if(isEmpty($('#explorerSelect').val())){
+            window.localStorage.setItem("explorer","https://garlicinsight.com");
+        }
+        //preselect saved Explorer.
         $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
     }
 }
