@@ -17,6 +17,7 @@ This is not a standalone Wallet yet. An existing Wallet is required.
 
 ### Download the prebuild built version here
 Android Version:
+[Playstore](https://play.google.com/store/apps/details?id=com.garlicoin.androidwallet)
 [Download](https://github.com/pauli2406/Garlicoin-Mobile-Wallet/releases/tag/v1.1.1)
 
 ---
