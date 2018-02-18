@@ -112,6 +112,11 @@ function getSavedAddresses() {
         }
         //preselect saved Explorer.
         $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
+
+        if (isEmpty($('#explorerSelectCurrency').val())) {
+            window.localStorage.setItem("currency", "USD");
+        }
+
         $("#explorerSelectCurrency").val(window.localStorage.getItem("currency")).change();
     }
 }
