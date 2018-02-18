@@ -54,6 +54,10 @@
 
                                 </div>
                             </ul>
+                            <div id="totalValue">
+
+                            </div>
+                            <button class="btn btn-default" id="calcTotal">Calculate Total</button>
                         </div>
                     </div>
                     <div class="row">
@@ -68,12 +72,22 @@
                             <span style="padding-right: 5px"></span>
                             <div style="float: right;" class="col-lg-4">
                                 <div class="form-group">
+                                    <select style=" padding-bottom: 5px;" class="form-control"
+                                            id="explorerSelectCurrency">
+                                        <option value="USD" selected>USD</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="BTC">BTC</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="float: right;" class="col-lg-4">
+                                <div class="form-group">
                                     <select style=" padding-bottom: 5px;" class="form-control" id="explorerSelect">
                                         <option value="https://garlicinsight.com" selected>Official Explorer</option>
                                         <option value="https://garli.co.in">Garli.Co Explorer</option>
                                         <option value="https://explorer.grlc-bakery.fun">Bakery Explorer</option>
                                         <option value="https://explorer.garlicoin.io">Garlicoin Explorer</option>
-                                        <option value="http://garlicoinexplorer.us.to">US Garlicoin Explorer</option>
+                                        <option value="https://garlicoinexplorer.com">Coin Explorer</option>
                                     </select>
                                 </div>
                             </div>
@@ -93,6 +107,28 @@
 
 </body>
 </html>
+<!-- Modal -->
+<div class="modal fade" id="renameModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Rename Wallet</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="oldName" class="form-control" readonly>
+                <input type="text" id="addressRenamed" class="form-control" readonly>
+                <input type="text" id="inRenameName" class="form-control" placeholder="new wallet name">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnRenameWallet" class="btn btn-default" data-dismiss="modal">rename</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 <script type="text/x-tmpl" id="tmpl-transList">
         <div class="listItems" id="div_{%=o.address%}">
@@ -100,16 +136,17 @@
                 <div class="row">
                     <div class="col-lg-12">
                         {% if (o.nickname) { %}
-                            <div id="inNickname" class="liTitle"><span>{%=o.nickname%}</span></div>
+                            <div id="{%=o.address%}_nickname" class="liTitle">{%=o.nickname%}</div>
                         {% } else { %}
                         {% } %}
                         <div id="walletAddress">{%=o.address%}</div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-12">
                         <div class="input-group-btn">
                             <span>
                                 <input id="btn_go_{%=o.address%}" type="button" class='btn btn-default submit_button' onclick="goTo(this.id)" value="submit"/>
                                 <button id="btn_del_{%=o.address%}" class='btn btn-danger del_button' onclick="delItem(this.id)" type="button">delete</button>
+                                <button id="btn_rename_{%=o.address%}" class='btn del_rename' data-toggle="modal" data-target="#renameModal" onclick="openRenameModal(this.id)" type="button">rename</button>
                             </span>
                         </div>
                     </div>
@@ -117,4 +154,15 @@
             </li>
         </div>
 </script>
+<script type="text/x-tmpl" id="tmpl-totalValue">
+        <ul class="list-group">
+            <li class="list-group-item ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#" class="total center"><span>Total GRLC {%=o.totalGrlc%}</span><span style="float:right">Total amount {%=o.totalWorth%} {%=o.currency%} </span></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
 
+</script>

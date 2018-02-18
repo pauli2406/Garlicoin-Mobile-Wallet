@@ -7,9 +7,9 @@ if(!isEmpty(window.localStorage.getItem("explorer"))){
 /******************************************Crawl Data from the Explorer********************************************************************/
 
 //This only should be a temporary way until a good API is found to get these informations!
-function getData() {
+function getTableData() {
     var wallet = window.localStorage.getItem("selectedWallet");
-    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
         var url = base_uri + '/insight-grlc-api/addrs/'+wallet+'/txs?from=0&to=25';
         $.ajax({
             url: url,
@@ -52,7 +52,6 @@ function getData() {
                     }
 
                 }
-
                 document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
             },
             error: function (result) {
@@ -109,56 +108,21 @@ function getData() {
     }
 }
 
-//Not used for now. Limited to 25 transactions
-function addPagination() {
-    var totalRows = $('#transTable').find('tbody tr:has(td)').length;
-    var recordPerPage = 10;
-    var totalPages = Math.ceil(totalRows / recordPerPage);
-    var $pages = $('<div id="pages"></div>');
-    for (i = 0; i < totalPages; i++) {
-        $('<span class="pageNumber">&nbsp;' + (i + 1) + '</span>').appendTo($pages);
-    }
-    $pages.appendTo('#transTable');
-
-    $('.pageNumber').hover(
-        function () {
-            $(this).addClass('focus');
-        },
-        function () {
-            $(this).removeClass('focus');
-        }
-    );
-
-    $('table').find('tbody tr:has(td)').hide();
-    var tr = $('table tbody tr:has(td)');
-    for (var i = 0; i <= recordPerPage - 1; i++) {
-        $(tr[i]).show();
-    }
-    $('span').click(function (event) {
-        $('#transTable').find('tbody tr:has(td)').hide();
-        var nBegin = ($(this).text() - 1) * recordPerPage;
-        var nEnd = $(this).text() * recordPerPage - 1;
-        for (var i = nBegin; i <= nEnd; i++) {
-            $(tr[i]).show();
-        }
-    });
-}
-
 /**********************************************************AJAX-Calls********************************************************************/
 
-function getBalance(usdPrice) {
+function getBalance(price, currency) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("selectedWallet");
-    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
         var url = base_uri + '/insight-grlc-api/addr/'+walletAddress;
-        balanceAjax(url,usdPrice);
+        balanceAjax(url, price, currency);
     }else{
         var url = base_uri + "/ext/getaddress/" + walletAddress;
-        balanceAjax(url,usdPrice);
+        balanceAjax(url, price, currency);
     }
 }
 
-function balanceAjax(url,usdPrice) {
+function balanceAjax(url, price, currency) {
     $.ajax({
         url: url,
         type: "GET",
@@ -168,10 +132,14 @@ function balanceAjax(url,usdPrice) {
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
-            value = precisionRound(balance * usdPrice,2);
-
+            if (currency != "BTC") {
+                value = precisionRound(balance * parseFloat(price), 2);
+            } else {
+                value = precisionRound(balance * parseFloat(price), 6);
+            }
             var result = {
-                priceInUsd: value,
+                currency: currency,
+                price: value,
                 balance: balance
             };
             document.getElementById("totalBalance").innerHTML = tmpl("tmpl-totalBalance", result);
@@ -184,7 +152,7 @@ function balanceAjax(url,usdPrice) {
 
 function getBlockDifficulty() {
     //get current Difficulty from the explorer API
-    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
         var url = base_uri + '/insight-grlc-api/status?q=getDifficulty';
         $.ajax({
             url: url,
@@ -221,7 +189,7 @@ function getBlockDifficulty() {
 
 function getBlockcount() {
     //get current Blockcount from the explorer API
-    if(base_uri === "https://garlicinsight.com" || base_uri ==="http://garlicoinexplorer.us.to"){
+    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
         var url = base_uri + '/insight-grlc-api/status?q=getInfo';
         $.ajax({
             url: url,
@@ -254,9 +222,17 @@ function getBlockcount() {
     }
 }
 
-function getUsdValue() {
-    //get current USD Value from coinmarketcap
-    var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
+function getCurrencyValue() {
+    var currency = window.localStorage.getItem("currency");
+    if (currency === "USD") {
+        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
+    } else if (currency === "EUR") {
+        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=EUR";
+    } else if (currency === "BTC") {
+        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=BTC";
+    } else {
+        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
+    }
     $.ajax({
         url: url,
         type: "GET",
@@ -265,27 +241,52 @@ function getUsdValue() {
         async:true,
         success: function (data) {
             var priceSpan;
+            var price_eur;
+            var day_volume_eur;
+            var price_btc;
+            var day_volume_btc;
+            var price_usd;
+            var day_volume_usd;
             if(parseFloat(data[0].percent_change_24h)< 0){
                 color = "red";
             }else{
                 color = "green";
             }
+            if (currency === "EUR") {
+                price_eur = (parseFloat(precisionRound(data[0].price_eur, 2))).formatMoney(2);
+                day_volume_eur = (parseFloat(data[0]["24h_volume_eur"])).formatMoney(2);
+            } else if (currency === "BTC") {
+                price_btc = parseFloat(data[0].price_btc, 6);
+                day_volume_btc = (parseFloat(data[0]["24h_volume_btc"])).formatMoney(2);
+            } else {
+                price_usd = (parseFloat(precisionRound(data[0].price_usd, 2))).formatMoney(2);
+                day_volume_usd = (parseFloat(data[0]["24h_volume_usd"])).formatMoney(2);
+            }
             var result = {
-                pricePerUsd: (parseFloat(precisionRound(data[0].price_usd,2))).formatMoney(2),
+                currency: currency,
+                pricePerUsd: price_usd,
                 totalValue: data[0].price_usd,
-                price_btc: data[0].price_btc,
+                price_btc: precisionRound(price_btc, 6),
+                volume_btc: day_volume_btc,
+                price_eur: price_eur,
+                volume_eur: day_volume_eur,
                 rank: data[0].rank,
-                volume_usd: (parseFloat(data[0]["24h_volume_usd"])).formatMoney(2),
+                volume_usd: day_volume_usd,
                 percent_change_color: color,
                 percent_change_1h: data[0].percent_change_1h,
                 percent_change_24h: data[0].percent_change_24h
             };
             //build the balance infobox
-            getBalance(data[0].price_usd);
-
+            if (currency === "EUR") {
+                getBalance(price_eur, currency);
+            } else if (currency === "BTC") {
+                getBalance(price_btc, currency);
+            } else {
+                getBalance(price_usd, currency);
+            }
             //Fill the Infobox with the current Rank and add the template
             document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", data[0].rank);
-            document.getElementById("usdValue").innerHTML = tmpl("tmpl-usdValue", result);
+            document.getElementById("GarlicValue").innerHTML = tmpl("tmpl-GarlicValue", result);
         },
         error: function (data) {
             throw "Es ist ein Fehler aufgetreten."
@@ -306,8 +307,8 @@ function isEmpty(str) {
 Number.prototype.formatMoney = function(c, d, t){
     var n = this,
         c = isNaN(c = Math.abs(c)) ? 2 : c,
-        d = d == undefined ? "," : d,
-        t = t == undefined ? "." : t,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
         s = n < 0 ? "-" : "",
         i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
         j = (j = i.length) > 3 ? j % 3 : 0;
@@ -318,8 +319,8 @@ Number.prototype.formatMoney = function(c, d, t){
 
 
 window.onload = function () {
-    getUsdValue();
-    getData();
+    getCurrencyValue();
+    getTableData();
     getBlockDifficulty();
     getBlockcount();
     $('#reloadTrans').click(function () {

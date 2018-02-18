@@ -29,7 +29,7 @@
         <section class="wrapper">
             <div class="row">
                 <div id="totalBalance"></div>
-                <div id="usdValue"></div>
+                <div id="GarlicValue"></div>
                 <div id="rankField"></div>
                 <div id="blockDiff"></div>
                 <div id="blockCount"></div>
@@ -147,7 +147,7 @@
         <div class="info-box yellow-bg">
             <i class="fa fa-shopping-cart"></i>
             <div class="count">{%=o.balance%} GRLC</div>
-            <div class="title">{%=o.priceInUsd%} worth in USD</div>
+            <div class="title">{%=o.price%} worth in {%=o.currency%}</div>
         </div>
     </div>
 </script>
@@ -162,16 +162,35 @@
     </div>
 </script>
 
-<script type="text/x-tmpl" id="tmpl-usdValue">
+<script type="text/x-tmpl" id="tmpl-GarlicValue">
     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <div class="info-box teal-bg">
             <i class="fa fa-dollar"></i>
-            <div class="count">{%=o.pricePerUsd%} $</div>
+            <div class="count">
+                {% if (o.currency == "USD") { %}
+                    {%=o.pricePerUsd%}$
+                {% } %}
+                {% if (o.currency == "EUR") { %}
+                    {%=o.price_eur%}€
+                {% } %}
+                {% if (o.currency == "BTC") { %}
+                    {%=o.price_btc%} BTC
+                {% } %}
+            </div>
             <div class="custom">
                 <span style="color:{%=o.percent_change_color%}">{%=o.percent_change_24h%}% in the last 24 hours</span>
             </div>
             <div class="title">
-                Volume (24h): {%=o.volume_usd%} USD
+                Volume (24h):   {% if (o.currency == "USD") { %}
+                                    {%=o.volume_usd%}
+                                {% } %}
+                                {% if (o.currency == "EUR") { %}
+                                    {%=o.volume_eur%}
+                                {% } %}
+                                {% if (o.currency == "BTC") { %}
+                                    {%=o.volume_btc%}
+                                {% } %}
+                {%=o.currency%}
             </div>
         </div>
     </div>
