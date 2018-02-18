@@ -7,6 +7,7 @@ window.onload = function () {
         scanQRCode();
         saveSelectedExplorer();
         renameWallet();
+        saveSelectedCurrency();
     }
 };
 
@@ -23,6 +24,13 @@ function saveSelectedExplorer() {
 //save the selected explorer in the localStorage
     $('#explorerSelect').on('change', function() {
         window.localStorage.setItem("explorer",this.value);
+    })
+}
+
+function saveSelectedCurrency() {
+//save the selected explorer in the localStorage
+    $('#explorerSelectCurrency').on('change', function () {
+        window.localStorage.setItem("currency", this.value);
     })
 }
 
@@ -95,14 +103,16 @@ function getSavedAddresses() {
         //temporary fix for new update.
         if(window.localStorage.getItem("explorer") === "https://garlicinsight.com/insight-grlc-api/"){
             window.localStorage.setItem("explorer","https://garlicinsight.com");
+        } else if (window.localStorage.getItem("explorer") === "http://garlicoinexplorer.us.to") {
+            window.localStorage.setItem("explorer", "https://garlicoinexplorer.com");
         }
-
-        //defaul set the official one if none is selected
+        //use the official Explorer if none is selected
         if(isEmpty($('#explorerSelect').val())){
             window.localStorage.setItem("explorer","https://garlicinsight.com");
         }
         //preselect saved Explorer.
         $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
+        $("#explorerSelectCurrency").val(window.localStorage.getItem("currency")).change();
     }
 }
 
@@ -146,7 +156,6 @@ function deleteListEntry(address) {
     //remove from local storage
     window.localStorage.removeItem(address);
 }
-
 
 //UTILS
 function isEmpty(str) {

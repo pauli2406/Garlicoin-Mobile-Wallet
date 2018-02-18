@@ -7,6 +7,10 @@
 .del_rename{
     float: left;
 }
+
+.submit_button {
+    float: right;
+}
 .listItems{
     margin-bottom: 10px
 }
