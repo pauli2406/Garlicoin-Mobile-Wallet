@@ -141,6 +141,32 @@ a.logo {
 
 }
 
+a.total {
+
+    font-size: 20px;
+
+    font-weight: 300;
+
+    color: #fed189;
+
+    margin-top: 15px;
+
+    text-transform: uppercase;
+
+}
+
+a.total span {
+    color: #688a7e;
+}
+
+a.total:hover, a.total:focus {
+
+    text-decoration: none;
+
+    outline: none;
+
+}
+
 a.logo:hover, a.logo:focus {
 
     text-decoration: none;

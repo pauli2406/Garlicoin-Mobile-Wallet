@@ -108,47 +108,11 @@ function getTableData() {
     }
 }
 
-//Not used for now. Limited to 25 transactions
-function addPagination() {
-    var totalRows = $('#transTable').find('tbody tr:has(td)').length;
-    var recordPerPage = 10;
-    var totalPages = Math.ceil(totalRows / recordPerPage);
-    var $pages = $('<div id="pages"></div>');
-    for (i = 0; i < totalPages; i++) {
-        $('<span class="pageNumber">&nbsp;' + (i + 1) + '</span>').appendTo($pages);
-    }
-    $pages.appendTo('#transTable');
-
-    $('.pageNumber').hover(
-        function () {
-            $(this).addClass('focus');
-        },
-        function () {
-            $(this).removeClass('focus');
-        }
-    );
-
-    $('table').find('tbody tr:has(td)').hide();
-    var tr = $('table tbody tr:has(td)');
-    for (var i = 0; i <= recordPerPage - 1; i++) {
-        $(tr[i]).show();
-    }
-    $('span').click(function (event) {
-        $('#transTable').find('tbody tr:has(td)').hide();
-        var nBegin = ($(this).text() - 1) * recordPerPage;
-        var nEnd = $(this).text() * recordPerPage - 1;
-        for (var i = nBegin; i <= nEnd; i++) {
-            $(tr[i]).show();
-        }
-    });
-}
-
 /**********************************************************AJAX-Calls********************************************************************/
 
 function getBalance(price, currency) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("selectedWallet");
-    debugger;
     if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
         var url = base_uri + '/insight-grlc-api/addr/'+walletAddress;
         balanceAjax(url, price, currency);
@@ -168,13 +132,11 @@ function balanceAjax(url, price, currency) {
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
-            debugger;
             if (currency != "BTC") {
                 value = precisionRound(balance * parseFloat(price), 2);
             } else {
                 value = precisionRound(balance * parseFloat(price), 6);
             }
-            debugger;
             var result = {
                 currency: currency,
                 price: value,
@@ -262,7 +224,6 @@ function getBlockcount() {
 
 function getCurrencyValue() {
     var currency = window.localStorage.getItem("currency");
-    debugger;
     if (currency === "USD") {
         var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     } else if (currency === "EUR") {
@@ -272,9 +233,6 @@ function getCurrencyValue() {
     } else {
         var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     }
-    //get current USD Value from coinmarketcap
-    //https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=EUR
-    //https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=BTC
     $.ajax({
         url: url,
         type: "GET",
@@ -289,7 +247,6 @@ function getCurrencyValue() {
             var day_volume_btc;
             var price_usd;
             var day_volume_usd;
-            debugger;
             if(parseFloat(data[0].percent_change_24h)< 0){
                 color = "red";
             }else{
@@ -327,7 +284,6 @@ function getCurrencyValue() {
             } else {
                 getBalance(price_usd, currency);
             }
-            debugger;
             //Fill the Infobox with the current Rank and add the template
             document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", data[0].rank);
             document.getElementById("GarlicValue").innerHTML = tmpl("tmpl-GarlicValue", result);

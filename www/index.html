@@ -54,6 +54,10 @@
 
                                 </div>
                             </ul>
+                            <div id="totalValue">
+
+                            </div>
+                            <button class="btn btn-default" id="calcTotal">Calculate Total</button>
                         </div>
                     </div>
                     <div class="row">
@@ -103,7 +107,6 @@
 
 </body>
 </html>
-
 <!-- Modal -->
 <div class="modal fade" id="renameModal" role="dialog">
     <div class="modal-dialog">
@@ -151,4 +154,15 @@
             </li>
         </div>
 </script>
+<script type="text/x-tmpl" id="tmpl-totalValue">
+        <ul class="list-group">
+            <li class="list-group-item ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#" class="total center"><span>Total GRLC {%=o.totalGrlc%}</span><span style="float:right">Total amount {%=o.totalWorth%} {%=o.currency%} </span></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
 
+</script>
