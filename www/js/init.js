@@ -6,6 +6,7 @@ window.onload = function () {
         addAddressOnClick();
         scanQRCode();
         saveSelectedExplorer();
+        renameWallet();
     }
 };
 
@@ -111,6 +112,25 @@ function goTo(id) {
     address = address.substring(address.indexOf('o_') + 2);
     window.localStorage.setItem("selectedWallet", address);
     document.location.href = "wallet.html";
+}
+
+function openRenameModal(id) {
+    address = id;
+    address = address.substring(address.indexOf('e_') + 2);
+    walletname = $('#'+address+'_nickname').text();
+    $('#addressRenamed').val(address);
+    $('#oldName').val(walletname);
+}
+
+function renameWallet() {
+    $("#btnRenameWallet").click(function() {
+        newName = $('#inRenameName').val();
+        address =  $('#addressRenamed').val();
+        var saveArray = new Array();
+        saveArray.push({address: address, nickname: newName});
+        window.localStorage.setArray(address, saveArray);
+        window.location.reload();
+    });
 }
 
 function delItem(id) {

@@ -94,13 +94,36 @@
 </body>
 </html>
 
+<!-- Modal -->
+<div class="modal fade" id="renameModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Rename Wallet</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="oldName" class="form-control" readonly>
+                <input type="text" id="addressRenamed" class="form-control" readonly>
+                <input type="text" id="inRenameName" class="form-control" placeholder="new wallet name">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnRenameWallet" class="btn btn-default" data-dismiss="modal">rename</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <script type="text/x-tmpl" id="tmpl-transList">
         <div class="listItems" id="div_{%=o.address%}">
             <li class="list-group-item yellow-bg">
                 <div class="row">
                     <div class="col-lg-12">
                         {% if (o.nickname) { %}
-                            <div id="inNickname" class="liTitle"><span>{%=o.nickname%}</span></div>
+                            <div id="{%=o.address%}_nickname" class="liTitle">{%=o.nickname%}</div>
                         {% } else { %}
                         {% } %}
                         <div id="walletAddress">{%=o.address%}</div>
@@ -110,6 +133,7 @@
                             <span>
                                 <input id="btn_go_{%=o.address%}" type="button" class='btn btn-default submit_button' onclick="goTo(this.id)" value="submit"/>
                                 <button id="btn_del_{%=o.address%}" class='btn btn-danger del_button' onclick="delItem(this.id)" type="button">delete</button>
+                                <button id="btn_rename_{%=o.address%}" class='btn del_rename' data-toggle="modal" data-target="#renameModal" onclick="openRenameModal(this.id)" type="button">rename</button>
                             </span>
                         </div>
                     </div>

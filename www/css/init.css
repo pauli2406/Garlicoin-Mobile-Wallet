@@ -4,6 +4,9 @@
 .del_button{
     float: left;
 }
+.del_rename{
+    float: left;
+}
 .listItems{
     margin-bottom: 10px
 }
