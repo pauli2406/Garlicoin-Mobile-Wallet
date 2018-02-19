@@ -31,6 +31,7 @@ function saveSelectedExplorer() {
 //save the selected explorer in the localStorage
     $('#explorerSelect').on('change', function() {
         window.localStorage.setItem("explorer",this.value);
+        window.location.reload();
     })
 }
 
@@ -53,6 +54,7 @@ function addAddressOnClick() {
         var entries = document.getElementById("address_list").innerHTML;
         var data = {address: address, nickname: nickname};
         document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
+        window.location.reload();
     })
 }
 
@@ -118,13 +120,13 @@ function getSavedAddresses() {
         }
         //preselect saved Explorer.
         $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
-
-        if (isEmpty($('#explorerSelectCurrency').val())) {
-            window.localStorage.setItem("currency", "USD");
-        }
-
-        $("#explorerSelectCurrency").val(window.localStorage.getItem("currency")).change();
     }
+    if (isEmpty(window.localStorage.getItem("currency"))) {
+        window.localStorage.setItem("currency", "USD");
+    }
+    $("#explorerSelectCurrency").val(window.localStorage.getItem("currency")).change();
+
+
 }
 //Functions for the list elements
 function goTo(id) {
