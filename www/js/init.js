@@ -47,14 +47,19 @@ function addAddressOnClick() {
 //Save and add a new address list element
     $('#btnAddAddress').click(function () {
         var address = $('#inAddAddress').val();
-        var nickname = $('#inNickname').val();
-        var saveArray = new Array();
-        saveArray.push({address: address,nickname: nickname});
-        window.localStorage.setArray(address,saveArray);
-        var entries = document.getElementById("address_list").innerHTML;
-        var data = {address: address, nickname: nickname};
-        document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
-        window.location.reload();
+        var checkRegex = new RegExp("(G|g|M)[a-z A-Z 0-9]{33}");
+        if(address.match(checkRegex)){
+            var nickname = $('#inNickname').val();
+            var saveArray = new Array();
+            saveArray.push({address: address,nickname: nickname});
+            window.localStorage.setArray(address,saveArray);
+            var entries = document.getElementById("address_list").innerHTML;
+            var data = {address: address, nickname: nickname};
+            document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
+            window.location.reload();
+        }else{
+            alert("Please scan a valid Wallet Address!");
+        }
     })
 }
 
@@ -66,12 +71,16 @@ function scanQRCode() {
                 if(!result.cancelled) {
                     var saveArray = new Array();
                     var nickname = $('#inNickname').val();
-                    saveArray.push({address: result.text, nickname: nickname});
-                    window.localStorage.setItem("selectedWallet", result.text);
-                    window.localStorage.setArray(result.text, saveArray);
-                    document.location.href = "wallet.html";
+                    var checkRegex = new RegExp("(G|g|M)[a-z A-Z 0-9]{33}");
+                    if(result.text.match(checkRegex)) {
+                        saveArray.push({address: result.text, nickname: nickname});
+                        window.localStorage.setItem("selectedWallet", result.text);
+                        window.localStorage.setArray(result.text, saveArray);
+                        document.location.href = "wallet.html";
+                    }else{
+                        alert("Please enter a valid Wallet Address!");
+                    }
                 }
-
             },
             function (error) {
                 alert("Scanning failed: " + error);
