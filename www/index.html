@@ -139,7 +139,7 @@
                             <div id="{%=o.address%}_nickname" class="liTitle">{%=o.nickname%}</div>
                         {% } else { %}
                         {% } %}
-                        <div id="walletAddress">{%=o.address%}</div>
+                        <div style="margin-bottom:5px;" id="walletAddress">{%=o.address%}</div>
                     </div>
                     <div class="col-lg-12">
                         <div class="input-group-btn">
@@ -159,7 +159,13 @@
             <li class="list-group-item ">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#" class="total center"><span>Total GRLC {%=o.totalGrlc%}</span><span style="float:right">Total amount {%=o.totalWorth%} {%=o.currency%} </span></a>
+                        <div class="col-lg-2>
+                            <a href="#" class="total center"><span>Total: </span></a>
+                        </div>
+                        <a href="#" class="total center"><span>{%=o.totalGrlc%} Grlc</span></a>
+                    </div>
+                    <div class="col-lg-12">
+                        <a href="#" class="total center"><span style="float:left">{%=o.totalWorth%} {%=o.currency%} </span></a>
                     </div>
                 </div>
             </li>
