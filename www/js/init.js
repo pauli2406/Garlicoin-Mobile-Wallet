@@ -160,6 +160,7 @@ function delItem(id) {
     address = address.substring(address.indexOf('l_') + 2);
     deleteListEntry(address);
     window.localStorage.removeItem(address);
+    window.location.reload();
 }
 
 function deleteListEntry(address) {
