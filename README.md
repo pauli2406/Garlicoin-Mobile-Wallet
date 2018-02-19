@@ -35,7 +35,7 @@ Still, the code should be working already, it just needs to be build.
 
 ### Screenshots
 <p align="center">
-  <img src="https://i.imgur.com/66RkT2P.jpg" width="250"/>
+  <img src="https://i.imgur.com/QgbBR7O.jpg" width="250"/>
   <img src="https://i.imgur.com/0Gc26uc.jpg" width="250"/>
   <img src="https://i.imgur.com/Zk5LXlU.jpg" width="250"/>
 </p>
