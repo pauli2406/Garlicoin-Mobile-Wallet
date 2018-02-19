@@ -265,7 +265,7 @@ function getTotalValue() {
     $(document).ajaxStop(function () {
         var currency = window.localStorage.getItem("currency");
         var value = window.localStorage.getItem("coin_value");
-        totalAmountGRLC = window.localStorage.getItem("totalGrlc");
+        totalAmountGRLC = precisionRound(window.localStorage.getItem("totalGrlc"),3);
         var price
         if (currency == "BTC") {
             price = precisionRound(parseFloat(value) * parseFloat(totalAmountGRLC), 6);
