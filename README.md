@@ -69,3 +69,13 @@ phonegap serve
 #### View
 
 You can now view the app either in a browser at the IP-Address shown in the terminal, or using the [PhoneGap Developer App](http://app.phonegap.com/) on your device.
+
+### Donations
+If you consider a donation to support this project. 
+These are my addresses. 
+
+BTC: 1CDFuRUvM41Nm9fK3cmw2oWvUgzNVYQhUi
+
+GRLC: GNCHqdF3U3ib2vsQLyZWbodGeaWyk7y5uC
+
+PayPal: https://www.paypal.me/MPochert
