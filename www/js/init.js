@@ -72,10 +72,11 @@ function scanQRCode() {
                     var saveArray = new Array();
                     var nickname = $('#inNickname').val();
                     var checkRegex = new RegExp("(G|g|M)[a-z A-Z 0-9]{33}");
-                    if(result.text.match(checkRegex)) {
-                        saveArray.push({address: result.text, nickname: nickname});
-                        window.localStorage.setItem("selectedWallet", result.text);
-                        window.localStorage.setArray(result.text, saveArray);
+                    var address = checkRegex.exec(result.text);
+                    if (address != null && !isEmpty(address[0]) && address[0].match(checkRegex)) {
+                        saveArray.push({address: address[0], nickname: nickname});
+                        window.localStorage.setItem("selectedWallet", address[0]);
+                        window.localStorage.setArray(address[0], saveArray);
                         document.location.href = "wallet.html";
                     }else{
                         alert("Please enter a valid Wallet Address!");
@@ -208,9 +209,6 @@ Number.prototype.formatMoney = function (c, d, t) {
 
 function calculateTotal() {
     $.when(getCurrencyValue()).done(function (a1) {
-        // $('#calcTotal').show().click(function () {
-        //     getTotalValue();
-        // });
         getTotalValue();
     });
 }

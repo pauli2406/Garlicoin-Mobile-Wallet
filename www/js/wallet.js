@@ -113,11 +113,12 @@ function getTableData() {
 function getBalance(price, currency) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("selectedWallet");
+    var url;
     if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
-        var url = base_uri + '/insight-grlc-api/addr/'+walletAddress;
+        url = base_uri + '/insight-grlc-api/addr/' + walletAddress;
         balanceAjax(url, price, currency);
     }else{
-        var url = base_uri + "/ext/getaddress/" + walletAddress;
+        url = base_uri + "/ext/getaddress/" + walletAddress;
         balanceAjax(url, price, currency);
     }
 }
@@ -132,17 +133,17 @@ function balanceAjax(url, price, currency) {
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
-            if (currency != "BTC") {
+            if (currency !== "BTC") {
                 value = precisionRound(balance * parseFloat(price), 2);
             } else {
                 value = precisionRound(balance * parseFloat(price), 6);
             }
-            var result = {
+            var finalResult = {
                 currency: currency,
                 price: value,
                 balance: balance
             };
-            document.getElementById("totalBalance").innerHTML = tmpl("tmpl-totalBalance", result);
+            document.getElementById("totalBalance").innerHTML = tmpl("tmpl-totalBalance", finalResult);
         },
         error: function (result) {
             throw "Es ist ein Fehler aufgetreten."
@@ -152,8 +153,9 @@ function balanceAjax(url, price, currency) {
 
 function getBlockDifficulty() {
     //get current Difficulty from the explorer API
+    var url;
     if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
-        var url = base_uri + '/insight-grlc-api/status?q=getDifficulty';
+        url = base_uri + '/insight-grlc-api/status?q=getDifficulty';
         $.ajax({
             url: url,
             type: "GET",
@@ -169,7 +171,7 @@ function getBlockDifficulty() {
             }
         });
     }else {
-        var url = base_uri + "/api/getdifficulty";
+        url = base_uri + "/api/getdifficulty";
         $.ajax({
             url: url,
             type: "GET",
@@ -189,8 +191,9 @@ function getBlockDifficulty() {
 
 function getBlockcount() {
     //get current Blockcount from the explorer API
+    var url;
     if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
-        var url = base_uri + '/insight-grlc-api/status?q=getInfo';
+        url = base_uri + '/insight-grlc-api/status?q=getInfo';
         $.ajax({
             url: url,
             type: "GET",
@@ -205,7 +208,7 @@ function getBlockcount() {
             }
         });
     }else {
-        var url = base_uri + "/api/getblockcount";
+        url = base_uri + "/api/getblockcount";
         $.ajax({
             url: url,
             type: "GET",
@@ -224,14 +227,15 @@ function getBlockcount() {
 
 function getCurrencyValue() {
     var currency = window.localStorage.getItem("currency");
+    var url;
     if (currency === "USD") {
-        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
+        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     } else if (currency === "EUR") {
-        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=EUR";
+        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=EUR";
     } else if (currency === "BTC") {
-        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=BTC";
+        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=BTC";
     } else {
-        var url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
+        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
     }
     $.ajax({
         url: url,
