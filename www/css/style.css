@@ -7,20 +7,119 @@
 /* Import fonts */
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 
-body {
+@media (max-width: 425px) {
+    body {
 
-    color: #797979;
+        color: #797979;
 
-    background: #eeeeee;
+        background: #eeeeee;
 
-    font-family: 'Lato', sans-serif;
+        font-family: 'Lato', sans-serif;
 
-    padding: 0px !important;
+        padding: 0px !important;
 
-    margin: 0px !important;
+        margin: 0px !important;
 
-    font-size: 14px !important;
+        font-size: 3.3vw !important;
 
+    }
+
+    a.logo {
+
+        font-size: 10vw;
+
+        font-weight: 300;
+
+        color: #fed189;
+
+        margin-top: 15px;
+
+        text-transform: uppercase;
+
+    }
+
+    .info-box .count {
+
+        margin-top: 20px;
+
+        font-size: 6vw;
+
+        font-weight: 700;
+
+    }
+
+    .info-box .title {
+
+        font-size: 3.8vw;
+
+        text-transform: uppercase;
+
+        font-weight: 600;
+
+    }
+
+    .info-box .custom {
+
+        font-size: 3.6vw;
+    }
+
+}
+
+@media (min-width: 425px) {
+    body {
+
+        color: #797979;
+
+        background: #eeeeee;
+
+        font-family: 'Lato', sans-serif;
+
+        padding: 0px !important;
+
+        margin: 0px !important;
+
+        font-size: 14px !important;
+
+    }
+
+    a.logo {
+
+        font-size: 40px;
+
+        font-weight: 300;
+
+        color: #fed189;
+
+        margin-top: 15px;
+
+        text-transform: uppercase;
+
+    }
+
+    .info-box .count {
+
+        margin-top: 20px;
+
+        font-size: 34px;
+
+        font-weight: 700;
+
+    }
+
+    .info-box .title {
+
+        font-size: 15px;
+
+        text-transform: uppercase;
+
+        font-weight: 600;
+
+    }
+
+    .info-box .custom {
+
+        font-size: 17px;
+    }
 }
 
 h1, h2, h3, h4, h5 {
@@ -127,19 +226,6 @@ table tr th {
 
 }
 
-a.logo {
-
-    font-size: 40px;
-
-    font-weight: 300;
-
-    color: #fed189;
-
-    margin-top: 15px;
-
-    text-transform: uppercase;
-
-}
 
 a.total {
 
@@ -255,30 +341,7 @@ a.logo span {
 
 }
 
-.info-box .count {
 
-    margin-top: 20px;
-
-    font-size: 34px;
-
-    font-weight: 700;
-
-}
-
-.info-box .title {
-
-    font-size: 15px;
-
-    text-transform: uppercase;
-
-    font-weight: 600;
-
-}
-
-.info-box .custom {
-
-    font-size: 17px;
-}
 
 .info-box .desc {
 

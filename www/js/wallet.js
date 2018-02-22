@@ -330,4 +330,10 @@ window.onload = function () {
     $('#reloadTrans').click(function () {
         getData();
     });
+    PullToRefresh.init({
+        onRefresh: function () {
+            window.location.reload();
+        }
+    });
+
 };
