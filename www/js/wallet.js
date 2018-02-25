@@ -27,26 +27,31 @@ function getTableData() {
 
                 for(i= 0; i < result.items.length; i++){
                     var amount = "";
+                    var timestamp;
                     //Transactions spend GRLC
                     for(n= 0; n < result.items[i].vin.length; n++) {
                         if(result.items[i].vin[n].addr === wallet ){
+                            timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
                             data.last_txs.push({
                                 "transactionId": result.items[i].txid,
                                 "confirmations": result.items[i].confirmations,
                                 "amount": "-" + result.items[i].vin[0].value,
-                                "fees": result.items[i].fees
+                                "fees": result.items[i].fees,
+                                "timestamp": timestamp
                             });
                         }
                     }
                     //Transactions recieved GRLC
                     for(m= 0; m < result.items[i].vout.length; m++) {
                         if (result.items[i].vout[m].scriptPubKey.addresses[0] === wallet) {
+                            timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
                             amount = result.items[i].vout[m].value;
                             data.last_txs.push({
                                 "transactionId": result.items[i].txid,
                                 "confirmations": result.items[i].confirmations,
                                 "amount": "+" + amount,
-                                "fees": result.items[i].fees
+                                "fees": result.items[i].fees,
+                                "timestamp": timestamp
                             });
                         }
                     }

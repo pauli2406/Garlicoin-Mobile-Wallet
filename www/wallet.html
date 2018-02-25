@@ -72,6 +72,7 @@
 <script type="text/javascript" src="js/wallet.js"></script>
 <script type="text/javascript" src="js/tmpl.min.js"></script>
 <script type="text/javascript" src="js/pulltorefresh.min.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
 
 </body>
 </html>
@@ -90,6 +91,7 @@
             {% } else { %}
                 <th></th>
                 <th>Amount</th>
+                <th>Date</th>
                 <th>Fees</th>
                 <th>Confirmations</th>
                 <th>TxAddress</th>
@@ -110,6 +112,7 @@
                 <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}/tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
                             height="25px" src="img/magnifying_glass.png"></span></a></td>
                 <td>{%=o.last_txs[i].amount%}</td>
+                <td>{%=o.last_txs[i].timestamp%}</td>
                 <td>{%=o.last_txs[i].fees%}</td>
                 <td >{%=o.last_txs[i].confirmations%}</td>
                 <td>{%=o.last_txs[i].transactionId%}</td>
