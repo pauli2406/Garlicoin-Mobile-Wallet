@@ -28,34 +28,45 @@ function getTableData() {
                 for(i= 0; i < result.items.length; i++){
                     var amount = "";
                     var timestamp;
+                    var alreadyAdded = false;
+                    var done = false;
                     //Transactions spend GRLC
+                    debugger;
                     for(n= 0; n < result.items[i].vin.length; n++) {
-                        if(result.items[i].vin[n].addr === wallet ){
+                        debugger;
+                        if(result.items[i].vin[n].addr === wallet && !done ){
+                            debugger;
+                            done = true;
                             timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
                             data.last_txs.push({
                                 "transactionId": result.items[i].txid,
                                 "confirmations": result.items[i].confirmations,
-                                "amount": "-" + result.items[i].vin[0].value,
+                                "amount": "-" + result.items[i].valueOut,
                                 "fees": result.items[i].fees,
                                 "timestamp": timestamp
                             });
+                            alreadyAdded = true;
                         }
                     }
-                    //Transactions recieved GRLC
-                    for(m= 0; m < result.items[i].vout.length; m++) {
-                        if (result.items[i].vout[m].scriptPubKey.addresses[0] === wallet) {
-                            timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
-                            amount = result.items[i].vout[m].value;
-                            data.last_txs.push({
-                                "transactionId": result.items[i].txid,
-                                "confirmations": result.items[i].confirmations,
-                                "amount": "+" + amount,
-                                "fees": result.items[i].fees,
-                                "timestamp": timestamp
-                            });
-                        }
-                    }
+                    debugger;
+                    if(!alreadyAdded){
+                        //Transactions recieved GRLC
+                        for(m= 0; m < result.items[i].vout.length; m++) {
 
+                            if (result.items[i].vout[m].scriptPubKey.addresses[0] === wallet) {
+                                debugger;
+                                timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
+                                amount = result.items[i].vout[m].value;
+                                data.last_txs.push({
+                                    "transactionId": result.items[i].txid,
+                                    "confirmations": result.items[i].confirmations,
+                                    "amount": "+" + amount,
+                                    "fees": result.items[i].fees,
+                                    "timestamp": timestamp
+                                });
+                            }
+                        }
+                    }
                 }
                 document.getElementById("transTable").innerHTML = tmpl("tmpl-lastTrans", data);
             },
