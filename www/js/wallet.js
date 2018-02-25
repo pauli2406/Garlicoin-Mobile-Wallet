@@ -31,11 +31,8 @@ function getTableData() {
                     var alreadyAdded = false;
                     var done = false;
                     //Transactions spend GRLC
-                    debugger;
                     for(n= 0; n < result.items[i].vin.length; n++) {
-                        debugger;
                         if(result.items[i].vin[n].addr === wallet && !done ){
-                            debugger;
                             done = true;
                             timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
                             data.last_txs.push({
@@ -48,13 +45,11 @@ function getTableData() {
                             alreadyAdded = true;
                         }
                     }
-                    debugger;
                     if(!alreadyAdded){
                         //Transactions recieved GRLC
                         for(m= 0; m < result.items[i].vout.length; m++) {
 
                             if (result.items[i].vout[m].scriptPubKey.addresses[0] === wallet) {
-                                debugger;
                                 timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
                                 amount = result.items[i].vout[m].value;
                                 data.last_txs.push({
