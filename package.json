@@ -12,7 +12,7 @@
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-console": "~1.0.3",
     "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
-    "cordova-plugin-dialogs": "~1.2.1",
+    "cordova-plugin-dialogs": "~2.0.2",
     "cordova-plugin-inappbrowser": "~2.0.1 ",
     "cordova-plugin-listpicker": "^2.2.2",
     "cordova-plugin-network-information": "git+https://github.com/apache/cordova-plugin-network-information.git",
