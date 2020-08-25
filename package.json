@@ -9,7 +9,7 @@
     "cordova-android": "^9.0.0",
     "cordova-browser": "^5.0.3",
     "cordova-ios": "^4.5.4",
-    "cordova-plugin-android-permissions": "^1.0.0",
+    "cordova-plugin-android-permissions": "^1.0.2",
     "cordova-plugin-console": "~1.1.0",
     "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
     "cordova-plugin-dialogs": "~2.0.2",
