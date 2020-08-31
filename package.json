@@ -20,7 +20,7 @@
     "cordova-plugin-whitelist": "~1.2.1",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "phonegap-plugin-mobile-accessibility": "git+https://github.com/phonegap/phonegap-mobile-accessibility.git",
-    "phonegap-plugin-push": "~1.8.0"
+    "phonegap-plugin-push": "~2.3.0"
   },
   "cordova": {
     "plugins": {
