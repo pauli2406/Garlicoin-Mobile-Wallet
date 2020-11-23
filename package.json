@@ -13,7 +13,7 @@
     "cordova-plugin-console": "~1.1.0",
     "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
     "cordova-plugin-dialogs": "~2.0.2",
-    "cordova-plugin-inappbrowser": "~2.0.1 ",
+    "cordova-plugin-inappbrowser": "~3.1.0",
     "cordova-plugin-listpicker": "^2.2.2",
     "cordova-plugin-network-information": "git+https://github.com/apache/cordova-plugin-network-information.git",
     "cordova-plugin-statusbar": "~2.4.3",
