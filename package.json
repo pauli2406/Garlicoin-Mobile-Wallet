@@ -8,7 +8,7 @@
   "dependencies": {
     "cordova-android": "^9.0.0",
     "cordova-browser": "^5.0.3",
-    "cordova-ios": "^4.5.4",
+    "cordova-ios": "^6.2.0",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-console": "~1.1.0",
     "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
