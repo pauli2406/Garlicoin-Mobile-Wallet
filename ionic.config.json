@@ -1,0 +1,7 @@
+{
+  "name": "GarlicoinAndroidWallet",
+  "type": "custom",
+  "integrations": {
+    "cordova": {}
+  }
+}
