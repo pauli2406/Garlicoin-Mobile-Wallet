@@ -6,7 +6,6 @@
   },
   "displayName": "GarlicoinAndroidWallet",
   "dependencies": {
-    "cordova-android": "^9.1.0",
     "cordova-browser": "^5.0.3",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-android-permissions": "^1.0.0",
@@ -19,15 +18,11 @@
     "cordova-plugin-statusbar": "~2.4.3",
     "cordova-plugin-whitelist": "~1.2.1",
     "phonegap-plugin-barcodescanner": "^8.1.0",
-    "phonegap-plugin-mobile-accessibility": "git+https://github.com/phonegap/phonegap-mobile-accessibility.git",
-    "phonegap-plugin-push": "~1.8.0"
+    "phonegap-plugin-mobile-accessibility": "git+https://github.com/phonegap/phonegap-mobile-accessibility.git"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-statusbar": {},
-      "phonegap-plugin-push": {
-        "SENDER_ID": "XXXXXXX"
-      },
       "cordova-plugin-console": {},
       "cordova-plugin-dialogs": {},
       "cordova-plugin-whitelist": {},
@@ -36,15 +31,22 @@
         "CAMERA_USAGE_DESCRIPTION": " "
       },
       "phonegap-plugin-mobile-accessibility": {},
-      "cordova-plugin-listpicker": {}
+      "cordova-plugin-listpicker": {},
+      "phonegap-plugin-push": {
+        "SENDER_ID": "XXXXXXX"
+      }
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/pauli2406/GarlicoinAndroidWallet"
+  },
+  "devDependencies": {
+    "cordova-android": "^9.1.0",
+    "phonegap-plugin-push": "~1.8.0"
   }
 }

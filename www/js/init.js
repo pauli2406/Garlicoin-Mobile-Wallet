@@ -2,7 +2,7 @@ var base_uri;
 if (!isEmpty(window.localStorage.getItem("explorer"))) {
     base_uri = window.localStorage.getItem("explorer");
 } else {
-    base_uri = "https://garlicinsight.com";
+    base_uri = "https://garli.co.in";
 }
 window.onload = function () {
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -21,22 +21,22 @@ window.onload = function () {
 };
 
 function checkTextZoom() {
-//change the Text Zoom to 75% to remve rezising issues
-    if(window.MobileAccessibility){
+    //change the Text Zoom to 75% to remve rezising issues
+    if (window.MobileAccessibility) {
         window.MobileAccessibility.setTextZoom(75);
     }
 }
 
 function saveSelectedExplorer() {
-//save the selected explorer in the localStorage
-    $('#explorerSelect').on('change', function() {
-        window.localStorage.setItem("explorer",this.value);
+    //save the selected explorer in the localStorage
+    $('#explorerSelect').on('change', function () {
+        window.localStorage.setItem("explorer", this.value);
         window.location.reload();
     })
 }
 
 function saveSelectedCurrency() {
-//save the selected explorer in the localStorage
+    //save the selected explorer in the localStorage
     $('#explorerSelectCurrency').on('change', function () {
         window.localStorage.setItem("currency", this.value);
         window.location.reload();
@@ -44,41 +44,41 @@ function saveSelectedCurrency() {
 }
 
 function addAddressOnClick() {
-//Save and add a new address list element
+    //Save and add a new address list element
     $('#btnAddAddress').click(function () {
         var address = $('#inAddAddress').val();
         var checkRegex = new RegExp("(G|g|M)[a-z A-Z 0-9]{33}");
-        if(address.match(checkRegex)){
+        if (address.match(checkRegex)) {
             var nickname = $('#inNickname').val();
             var saveArray = new Array();
-            saveArray.push({address: address,nickname: nickname});
-            window.localStorage.setArray(address,saveArray);
+            saveArray.push({ address: address, nickname: nickname });
+            window.localStorage.setArray(address, saveArray);
             var entries = document.getElementById("address_list").innerHTML;
-            var data = {address: address, nickname: nickname};
+            var data = { address: address, nickname: nickname };
             document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
             window.location.reload();
-        }else{
+        } else {
             alert("Please scan a valid Wallet Address!");
         }
     })
 }
 
 function scanQRCode() {
-//scan a QR-Code, save the address, if nickname is set save the nickname too. Change view to the wallet
+    //scan a QR-Code, save the address, if nickname is set save the nickname too. Change view to the wallet
     $('#btnScanQr').click(function () {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-                if(!result.cancelled) {
+                if (!result.cancelled) {
                     var saveArray = new Array();
                     var nickname = $('#inNickname').val();
                     var checkRegex = new RegExp("(G|g|M)[a-z A-Z 0-9]{33}");
                     var address = checkRegex.exec(result.text);
                     if (address != null && !isEmpty(address[0]) && address[0].match(checkRegex)) {
-                        saveArray.push({address: address[0], nickname: nickname});
+                        saveArray.push({ address: address[0], nickname: nickname });
                         window.localStorage.setItem("selectedWallet", address[0]);
                         window.localStorage.setArray(address[0], saveArray);
                         document.location.href = "wallet.html";
-                    }else{
+                    } else {
                         alert("Please enter a valid Wallet Address!");
                     }
                 }
@@ -103,7 +103,7 @@ function scanQRCode() {
 }
 
 function getSavedAddresses() {
-//retrieve all saved addresses from the local storage and add them to the list
+    //retrieve all saved addresses from the local storage and add them to the list
     for (i = 0; i < window.localStorage.length; i++) {
         var savedWallets = window.localStorage;
         for (i = 0; i < savedWallets.length; i++) {
@@ -111,22 +111,20 @@ function getSavedAddresses() {
             if (!isEmpty(addr) && (addr.startsWith("G")) || addr.startsWith("g")) {
                 var array = window.localStorage.getArray(addr);
                 array = array[0];
-                var data = {address: array.address, nickname: array.nickname};
+                var data = { address: array.address, nickname: array.nickname };
                 var entries = document.getElementById("address_list").innerHTML;
                 document.getElementById("address_list").innerHTML = entries + tmpl("tmpl-transList", data);
             }
         }
     }
-    if(!isEmpty(window.localStorage.getItem("explorer"))){
+    if (!isEmpty(window.localStorage.getItem("explorer"))) {
         //temporary fix for new update.
-        if(window.localStorage.getItem("explorer") === "https://garlicinsight.com/insight-grlc-api/"){
-            window.localStorage.setItem("explorer","https://garlicinsight.com");
-        } else if (window.localStorage.getItem("explorer") === "http://garlicoinexplorer.us.to") {
-            window.localStorage.setItem("explorer", "https://garlicoinexplorer.com");
+        if (window.localStorage.getItem("explorer") === "https://garli.co.in/insight-grlc-api/") {
+            window.localStorage.setItem("explorer", "https://garli.co.in");
         }
         //use the official Explorer if none is selected
-        if(isEmpty($('#explorerSelect').val())){
-            window.localStorage.setItem("explorer","https://garlicinsight.com");
+        if (isEmpty($('#explorerSelect').val())) {
+            window.localStorage.setItem("explorer", "https://garli.co.in");
         }
         //preselect saved Explorer.
         $("#explorerSelect").val(window.localStorage.getItem("explorer")).change();
@@ -149,17 +147,17 @@ function goTo(id) {
 function openRenameModal(id) {
     address = id;
     address = address.substring(address.indexOf('e_') + 2);
-    walletname = $('#'+address+'_nickname').text();
+    walletname = $('#' + address + '_nickname').text();
     $('#addressRenamed').val(address);
     $('#oldName').val(walletname);
 }
 
 function renameWallet() {
-    $("#btnRenameWallet").click(function() {
+    $("#btnRenameWallet").click(function () {
         newName = $('#inRenameName').val();
-        address =  $('#addressRenamed').val();
+        address = $('#addressRenamed').val();
         var saveArray = new Array();
-        saveArray.push({address: address, nickname: newName});
+        saveArray.push({ address: address, nickname: newName });
         window.localStorage.setArray(address, saveArray);
         window.location.reload();
     });
@@ -183,10 +181,10 @@ function deleteListEntry(address) {
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }
-Storage.prototype.setArray = function(key, obj) {
+Storage.prototype.setArray = function (key, obj) {
     return this.setItem(key, JSON.stringify(obj))
 };
-Storage.prototype.getArray = function(key) {
+Storage.prototype.getArray = function (key) {
     return JSON.parse(this.getItem(key))
 };
 
@@ -215,16 +213,8 @@ function calculateTotal() {
 
 function getCurrencyValue() {
     var currency = window.localStorage.getItem("currency");
-    var url;
-    if (currency === "USD") {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
-    } else if (currency === "EUR") {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=EUR";
-    } else if (currency === "BTC") {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=BTC";
-    } else {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
-    }
+    var url = "https://api.coingecko.com/api/v3/coins/garlicoin?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false";
+
     $('#calcTotal').hide();
     return $.ajax({
         url: url,
@@ -235,11 +225,11 @@ function getCurrencyValue() {
         success: function (data) {
             var price = 0;
             if (currency === "EUR") {
-                price = (parseFloat(precisionRound(data[0].price_eur, 2))).formatMoney(2);
+                price = (parseFloat(precisionRound(data.market_data.current_price["eur"], 2))).formatMoney(2);
             } else if (currency === "BTC") {
-                price = parseFloat(data[0].price_btc, 6);
+                price = parseFloat(data.market_data.current_price["btc"], 6);
             } else {
-                price = (parseFloat(precisionRound(data[0].price_usd, 2))).formatMoney(2);
+                price = (parseFloat(precisionRound(data.market_data.current_price["usd"], 2))).formatMoney(2);
             }
             var result = {
                 currency: currency,
@@ -272,14 +262,14 @@ function getTotalValue() {
     $(document).ajaxStop(function () {
         var currency = window.localStorage.getItem("currency");
         var value = window.localStorage.getItem("coin_value");
-        totalAmountGRLC = precisionRound(window.localStorage.getItem("totalGrlc"),3);
+        totalAmountGRLC = precisionRound(window.localStorage.getItem("totalGrlc"), 3);
         var price
         if (currency == "BTC") {
             price = precisionRound(parseFloat(value) * parseFloat(totalAmountGRLC), 6);
         } else {
             price = precisionRound(parseFloat(value) * parseFloat(totalAmountGRLC), 2);
         }
-        var data = {totalGrlc: totalAmountGRLC, totalWorth: price, currency: currency};
+        var data = { totalGrlc: totalAmountGRLC, totalWorth: price, currency: currency };
         document.getElementById("totalValue").innerHTML = tmpl("tmpl-totalValue", data);
         window.localStorage.setItem("totalValue", 0);
         window.localStorage.setItem("totalGrlc", 0);
@@ -288,7 +278,7 @@ function getTotalValue() {
 
 function getBalance(address) {
     var url;
-    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
+    if (base_uri === "https://garli.co.in") {
         url = base_uri + '/insight-grlc-api/addr/' + address + "?noTxList=1";
         return $.ajax({
             url: url,

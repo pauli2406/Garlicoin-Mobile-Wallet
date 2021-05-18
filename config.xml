@@ -8,7 +8,7 @@
     <author email="mpochert@gmail.com" />
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-minSdkVersion" value="29" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#1a2732" />
     <preference name="StatusBarStyle" value="blacktranslucent" />
@@ -24,6 +24,8 @@
     </platform>
     <platform name="android">
         <icon height="180" src="/img/garlicoin_wallet_final.png" width="180" />
+        <resource-file src="resources/icon.png" target="app/src/main/res/mipmap/icon.png" />
+        <resource-file src="resources/icon.png" target="app/src/main/res/mipmap/ic_launcher.png" />
     </platform>
     <platform name="android">
         <allow-intent href="market:*" />
@@ -36,9 +38,6 @@
         <string>To scan barcodes</string>
     </edit-config>
     <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
-    <plugin name="phonegap-plugin-push" spec="~1.8.0">
-        <variable name="SENDER_ID" value="XXXXXXX" />
-    </plugin>
     <plugin name="cordova-plugin-console" spec="~1.0.3" />
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />

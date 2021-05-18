@@ -1,22 +1,22 @@
 /**************************************Globals*********************************************************************************************/
-if(!isEmpty(window.localStorage.getItem("explorer"))){
+if (!isEmpty(window.localStorage.getItem("explorer"))) {
     var base_uri = window.localStorage.getItem("explorer");
-}else{
-    var base_uri = "https://garlicinsight.com";
+} else {
+    var base_uri = "https://garli.co.in";
 }
 /******************************************Crawl Data from the Explorer********************************************************************/
 
 //This only should be a temporary way until a good API is found to get these informations!
 function getTableData() {
     var wallet = window.localStorage.getItem("selectedWallet");
-    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
-        var url = base_uri + '/insight-grlc-api/addrs/'+wallet+'/txs?from=0&to=25';
+    if (base_uri === "https://garli.co.in") {
+        var url = base_uri + '/insight-grlc-api/addrs/' + wallet + '/txs?from=0&to=25';
         $.ajax({
             url: url,
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            async:true,
+            async: true,
             success: function (result) {
                 var wallet = window.localStorage.getItem("selectedWallet");
                 var data = {
@@ -25,14 +25,14 @@ function getTableData() {
                     explorerUrl: base_uri
                 };
 
-                for(i= 0; i < result.items.length; i++){
+                for (i = 0; i < result.items.length; i++) {
                     var amount = "";
                     var timestamp;
                     var alreadyAdded = false;
                     var done = false;
                     //Transactions spend GRLC
-                    for(n= 0; n < result.items[i].vin.length; n++) {
-                        if(result.items[i].vin[n].addr === wallet && !done ){
+                    for (n = 0; n < result.items[i].vin.length; n++) {
+                        if (result.items[i].vin[n].addr === wallet && !done) {
                             done = true;
                             timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
                             data.last_txs.push({
@@ -45,9 +45,9 @@ function getTableData() {
                             alreadyAdded = true;
                         }
                     }
-                    if(!alreadyAdded){
+                    if (!alreadyAdded) {
                         //Transactions recieved GRLC
-                        for(m= 0; m < result.items[i].vout.length; m++) {
+                        for (m = 0; m < result.items[i].vout.length; m++) {
 
                             if (result.items[i].vout[m].scriptPubKey.addresses[0] === wallet) {
                                 timestamp = moment.unix(result.items[i].time).format("Do MMM YYYY HH:mm:ss");
@@ -69,7 +69,7 @@ function getTableData() {
                 throw "Es ist ein Fehler aufgetreten."
             }
         });
-    }else {
+    } else {
         $.get(base_uri + '/address/' + wallet, function (response) {
             //Split and substring the data from the crawler to our Array with informations
             var subbed = response.substring(response.indexOf('<th class="hidden-xs">Timestamp</th>') + 1);
@@ -125,10 +125,10 @@ function getBalance(price, currency) {
     //get current Balance from saved Wallet. Has to be changed if multiple Wallets should be possible
     var walletAddress = window.localStorage.getItem("selectedWallet");
     var url;
-    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
+    if (base_uri === "https://garli.co.in") {
         url = base_uri + '/insight-grlc-api/addr/' + walletAddress;
         balanceAjax(url, price, currency);
-    }else{
+    } else {
         url = base_uri + "/ext/getaddress/" + walletAddress;
         balanceAjax(url, price, currency);
     }
@@ -140,7 +140,7 @@ function balanceAjax(url, price, currency) {
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        async:true,
+        async: true,
         success: function (result) {
             balance = result.balance;
             balance = precisionRound(balance, 4);
@@ -165,7 +165,7 @@ function balanceAjax(url, price, currency) {
 function getBlockDifficulty() {
     //get current Difficulty from the explorer API
     var url;
-    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
+    if (base_uri === "https://garli.co.in") {
         url = base_uri + '/insight-grlc-api/status?q=getDifficulty';
         $.ajax({
             url: url,
@@ -181,7 +181,7 @@ function getBlockDifficulty() {
                 throw "Es ist ein Fehler aufgetreten."
             }
         });
-    }else {
+    } else {
         url = base_uri + "/api/getdifficulty";
         $.ajax({
             url: url,
@@ -203,7 +203,7 @@ function getBlockDifficulty() {
 function getBlockcount() {
     //get current Blockcount from the explorer API
     var url;
-    if (base_uri === "https://garlicinsight.com" || base_uri === "https://garlicoinexplorer.com") {
+    if (base_uri === "https://garli.co.in") {
         url = base_uri + '/insight-grlc-api/status?q=getInfo';
         $.ajax({
             url: url,
@@ -218,7 +218,7 @@ function getBlockcount() {
                 throw "Es ist ein Fehler aufgetreten."
             }
         });
-    }else {
+    } else {
         url = base_uri + "/api/getblockcount";
         $.ajax({
             url: url,
@@ -238,22 +238,14 @@ function getBlockcount() {
 
 function getCurrencyValue() {
     var currency = window.localStorage.getItem("currency");
-    var url;
-    if (currency === "USD") {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
-    } else if (currency === "EUR") {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=EUR";
-    } else if (currency === "BTC") {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/?convert=BTC";
-    } else {
-        url = "https://api.coinmarketcap.com/v1/ticker/garlicoin/";
-    }
+    var url = "https://api.coingecko.com/api/v3/coins/garlicoin?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false";
+
     $.ajax({
         url: url,
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        async:true,
+        async: true,
         success: function (data) {
             var priceSpan;
             var price_eur;
@@ -262,34 +254,34 @@ function getCurrencyValue() {
             var day_volume_btc;
             var price_usd;
             var day_volume_usd;
-            if(parseFloat(data[0].percent_change_24h)< 0){
+            if (parseFloat(data.market_data.price_change_24h) < 0) {
                 color = "red";
-            }else{
+            } else {
                 color = "green";
             }
             if (currency === "EUR") {
-                price_eur = (parseFloat(precisionRound(data[0].price_eur, 2))).formatMoney(2);
-                day_volume_eur = (parseFloat(data[0]["24h_volume_eur"])).formatMoney(2);
+                price_eur = (parseFloat(precisionRound(data.market_data.current_price["eur"], 2))).formatMoney(2);
+                day_volume_eur = (parseFloat(data.market_data.total_volume["eur"])).formatMoney(2);
             } else if (currency === "BTC") {
-                price_btc = parseFloat(data[0].price_btc, 6);
-                day_volume_btc = (parseFloat(data[0]["24h_volume_btc"])).formatMoney(2);
+                price_btc = parseFloat(data.market_data.current_price["btc"], 6);
+                day_volume_btc = (parseFloat(data.market_data.total_volume["btc"])).formatMoney(2);
             } else {
-                price_usd = (parseFloat(precisionRound(data[0].price_usd, 2))).formatMoney(2);
-                day_volume_usd = (parseFloat(data[0]["24h_volume_usd"])).formatMoney(2);
+                price_usd = (parseFloat(precisionRound(data.market_data.current_price["usd"], 2))).formatMoney(2);
+                day_volume_usd = (parseFloat(data.market_data.total_volume["usd"])).formatMoney(2);
             }
             var result = {
                 currency: currency,
                 pricePerUsd: price_usd,
-                totalValue: data[0].price_usd,
+                totalValue: data.market_data.total_volume["usd"],
                 price_btc: precisionRound(price_btc, 6),
                 volume_btc: day_volume_btc,
                 price_eur: price_eur,
                 volume_eur: day_volume_eur,
-                rank: data[0].rank,
+                rank: data.coingecko_rank,
                 volume_usd: day_volume_usd,
                 percent_change_color: color,
-                percent_change_1h: data[0].percent_change_1h,
-                percent_change_24h: data[0].percent_change_24h
+                percent_change_1h: data.market_data.price_change_24h,
+                percent_change_24h: precisionRound(data.market_data.price_change_percentage_24h, 2)
             };
             //build the balance infobox
             if (currency === "EUR") {
@@ -300,7 +292,7 @@ function getCurrencyValue() {
                 getBalance(price_usd, currency);
             }
             //Fill the Infobox with the current Rank and add the template
-            document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", data[0].rank);
+            document.getElementById("rankField").innerHTML = tmpl("tmpl-rank", data.coingecko_rank);
             document.getElementById("GarlicValue").innerHTML = tmpl("tmpl-GarlicValue", result);
         },
         error: function (data) {
@@ -319,7 +311,7 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
-Number.prototype.formatMoney = function(c, d, t){
+Number.prototype.formatMoney = function (c, d, t) {
     var n = this,
         c = isNaN(c = Math.abs(c)) ? 2 : c,
         d = d == undefined ? "." : d,
