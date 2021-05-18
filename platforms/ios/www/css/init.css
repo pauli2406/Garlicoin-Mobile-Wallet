@@ -1,0 +1,40 @@
+.submit_button {
+    float: right;
+}
+.del_button{
+    float: left;
+}
+.del_rename{
+    float: left;
+}
+
+.submit_button {
+    float: right;
+}
+.listItems{
+    margin-bottom: 10px
+}
+#btnAddAddress{
+    margin-bottom: 10px;
+}
+
+@media (max-width: 425px) {
+    #walletAddress {
+        font-size: 3.6vw;
+    }
+
+    .liTitle {
+        font-size: 5vw;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+}
+
+@media (min-width: 425px) {
+    .liTitle {
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+}
+

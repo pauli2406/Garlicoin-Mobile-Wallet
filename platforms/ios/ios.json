@@ -1,0 +1,191 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "*-Info.plist": {
+        "parents": {
+          "NSCameraUsageDescription": [
+            {
+              "xml": "<string>To scan barcodes</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ]
+        }
+      },
+      "config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVWKInAppBrowser\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"ListPicker\"><param name=\"ios-package\" value=\"ListPicker\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"MobileAccessibility\"><param name=\"ios-package\" onload=\"true\" value=\"CDVMobileAccessibility\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-listpicker": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "phonegap-plugin-mobile-accessibility": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification",
+      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open"
+      ]
+    },
+    {
+      "id": "cordova-plugin-listpicker.ListPicker",
+      "file": "plugins/cordova-plugin-listpicker/www/ListPicker.js",
+      "pluginId": "cordova-plugin-listpicker",
+      "clobbers": [
+        "window.plugins.listpicker"
+      ]
+    },
+    {
+      "id": "cordova-plugin-network-information.network",
+      "file": "plugins/cordova-plugin-network-information/www/network.js",
+      "pluginId": "cordova-plugin-network-information",
+      "clobbers": [
+        "navigator.connection"
+      ]
+    },
+    {
+      "id": "cordova-plugin-network-information.Connection",
+      "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+      "pluginId": "cordova-plugin-network-information",
+      "clobbers": [
+        "Connection"
+      ]
+    },
+    {
+      "id": "cordova-plugin-statusbar.statusbar",
+      "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+      "pluginId": "cordova-plugin-statusbar",
+      "clobbers": [
+        "window.StatusBar"
+      ]
+    },
+    {
+      "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+      "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+      "pluginId": "phonegap-plugin-barcodescanner",
+      "clobbers": [
+        "cordova.plugins.barcodeScanner"
+      ]
+    },
+    {
+      "id": "phonegap-plugin-mobile-accessibility.mobile-accessibility",
+      "file": "plugins/phonegap-plugin-mobile-accessibility/www/mobile-accessibility.js",
+      "pluginId": "phonegap-plugin-mobile-accessibility",
+      "clobbers": [
+        "window.MobileAccessibility"
+      ]
+    },
+    {
+      "id": "phonegap-plugin-mobile-accessibility.MobileAccessibilityNotifications",
+      "file": "plugins/phonegap-plugin-mobile-accessibility/www/MobileAccessibilityNotifications.js",
+      "pluginId": "phonegap-plugin-mobile-accessibility",
+      "clobbers": [
+        "MobileAccessibilityNotifications"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-device": "2.0.4-dev",
+    "cordova-plugin-dialogs": "2.0.2",
+    "cordova-plugin-inappbrowser": "5.0.0",
+    "cordova-plugin-listpicker": "2.2.2",
+    "cordova-plugin-network-information": "3.0.0-dev",
+    "cordova-plugin-statusbar": "2.4.3",
+    "cordova-plugin-whitelist": "1.2.2",
+    "phonegap-plugin-barcodescanner": "8.1.0",
+    "phonegap-plugin-mobile-accessibility": "1.0.5-dev"
+  }
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+
+    <title>Garlicoin Mobile Wallet</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/wallet.css" rel="stylesheet"/>
+    <link href="css/style-responsive.css" rel="stylesheet"/>
+    <link href="css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+<section id="container" class="">
+    <header class="header dark-bg">
+        <div style="text-align: center;">
+            <img style="padding-bottom: 20px;" src="img/garlicoin_wallet_final.png" width="50px">
+            <a href="index.html" class="logo center">Garli<span style='text-align: center' class="lite">Coin</span></a>
+        </div>
+    </header>
+    <section style="padding-top: 15px;" id="main-content">
+        <section class="wrapper" id="main-content-wallet">
+            <div class="row">
+                <div id="totalBalance"></div>
+                <div id="GarlicValue"></div>
+                <div id="rankField"></div>
+                <div id="blockDiff"></div>
+                <div id="blockCount"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong>Latest 25 transactions</strong></h2>
+                            <div class="panel-actions">
+                                <a href="#" id="reloadTrans" class="btn-setting"><i
+                                        class="fa fa-rotate-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="transTable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 panel-footer">
+                    <a href="#"
+                       onclick="cordova.InAppBrowser.open('https://github.com/pauli2406/GarlicoinAndroidWallet', '_blank');return false;"><span><img
+                            height="25px" src="img/github.ico"></span></a>
+                    <span style="padding-right: 5px"></span>
+                    <a href="#"
+                       onclick="cordova.InAppBrowser.open('https://www.paypal.me/MPochert', '_blank');return false;"><span><img
+                            height="25px" src="img/Paypal_2014_logo.png"></span></a>
+                    <span style="padding-right: 5px"></span>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/wallet.js"></script>
+<script type="text/javascript" src="js/tmpl.min.js"></script>
+<script type="text/javascript" src="js/pulltorefresh.min.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+
+</body>
+</html>
+
+<script type="text/x-tmpl" id="tmpl-lastTrans">
+<div style="overflow-x:auto;">
+    <table id=transactionTable class="table bootstrap-datatable countries">
+        <thead>
+        <tr>
+            {% if (!o.insight) { %}
+                <th></th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>TxAddress</th>
+            {% } else { %}
+                <th></th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Fees</th>
+                <th>Confirmations</th>
+                <th>TxAddress</th>
+            {% } %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for (var i=0; i<o.last_txs.length; i++) { %}
+        <tr>
+            {% if (!o.insight) { %}
+                <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}/tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
+                            height="25px" src="img/magnifying_glass.png"></span></a></td>
+                <td>{%=o.last_txs[i].amount%}</td>
+                <td>{%=o.last_txs[i].status%}</td>
+                <td>{%=o.last_txs[i].date%}</td>
+                <td>{%=o.last_txs[i].transactionId%}</td>
+            {% } else { %}
+                <td> <a href="#"onclick="cordova.InAppBrowser.open('{%=o.explorerUrl%}/tx/{%=o.last_txs[i].transactionId%}', '_blank');return false;"><span><img
+                            height="25px" src="img/magnifying_glass.png"></span></a></td>
+                <td>{%=o.last_txs[i].amount%}</td>
+                <td>{%=o.last_txs[i].timestamp%}</td>
+                <td>{%=o.last_txs[i].fees%}</td>
+                <td >{%=o.last_txs[i].confirmations%}</td>
+                <td>{%=o.last_txs[i].transactionId%}</td>
+            {% } %}
+        </tr>
+        {% } %}
+        </tbody>
+    </table>
+</div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-blockCount">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box green-bg">
+                <i class="fa fa-cubes"></i>
+                <div class="count">{%=o%}</div>
+                <div class="title">Total blocks mined</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-blockDiff">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box blue-bg">
+            <i class="fa fa-cloud-download"></i>
+            <div class="count">{%=o%}</div>
+            <div class="title">Current difficulty</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-totalBalance">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box yellow-bg">
+            <i class="fa fa-shopping-cart"></i>
+            <div class="count">{%=o.balance%} GRLC</div>
+            <div class="title">{%=o.price%} worth in {%=o.currency%}</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-rank">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box lime-bg">
+            <i class="fa fa-list-ol"></i>
+            <div class="count">{%=o%}</div>
+            <div class="title">rank of GRLC</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="tmpl-GarlicValue">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="info-box teal-bg">
+            <i class="fa fa-dollar"></i>
+            <div class="count">
+                {% if (o.currency == "USD") { %}
+                    {%=o.pricePerUsd%}$
+                {% } %}
+                {% if (o.currency == "EUR") { %}
+                    {%=o.price_eur%}€
+                {% } %}
+                {% if (o.currency == "BTC") { %}
+                    {%=o.price_btc%} BTC
+                {% } %}
+            </div>
+            <div class="custom">
+                <span style="color:{%=o.percent_change_color%}">{%=o.percent_change_24h%}% in the last 24 hours</span>
+            </div>
+            <div class="title">
+                Volume (24h):   {% if (o.currency == "USD") { %}
+                                    {%=o.volume_usd%}
+                                {% } %}
+                                {% if (o.currency == "EUR") { %}
+                                    {%=o.volume_eur%}
+                                {% } %}
+                                {% if (o.currency == "BTC") { %}
+                                    {%=o.volume_btc%}
+                                {% } %}
+                {%=o.currency%}
+            </div>
+        </div>
+    </div>
+</script>

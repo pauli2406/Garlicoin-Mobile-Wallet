@@ -1,0 +1,40 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-listpicker": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "phonegap-plugin-mobile-accessibility": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.garlicoin.androidwallet"
+    }
+  }
+}

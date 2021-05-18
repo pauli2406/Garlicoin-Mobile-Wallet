@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+
+    .header {
+        position: absolute;
+    }
+
+    /* body container */
+    #main-content {
+        margin: 0px !important;
+    }
+
+    .btn {
+        margin-bottom: 5px;
+    }
+}

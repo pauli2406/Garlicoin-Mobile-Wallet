@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Garlicoin Wallet",
+  "short_name": "Garlicoin Wallet",
+  "version": "com.garlicoin.androidwallet",
+  "description": "Garlicoin Wallet",
+  "icons": [],
+  "start_url": "index.html",
+  "theme_color": "#1a2732"
+}

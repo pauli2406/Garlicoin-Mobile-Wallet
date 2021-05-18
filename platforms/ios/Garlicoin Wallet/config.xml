@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.garlicoin.androidwallet" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="CDVWebViewEngine">
+        <param name="ios-package" value="CDVWebViewEngine" />
+    </feature>
+    <feature name="LaunchScreen">
+        <param name="ios-package" value="CDVLaunchScreen" />
+    </feature>
+    <feature name="LocalStorage">
+        <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <feature name="Console">
+        <param name="ios-package" value="CDVLogger" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="HandleOpenUrl">
+        <param name="ios-package" value="CDVHandleOpenURL" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="IntentAndNavigationFilter">
+        <param name="ios-package" value="CDVIntentAndNavigationFilter" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="GestureHandler">
+        <param name="ios-package" value="CDVGestureHandler" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVWKInAppBrowser" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="ListPicker">
+        <param name="ios-package" value="ListPicker" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="ios-package" value="CDVConnection" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="BarcodeScanner">
+        <param name="ios-package" value="CDVBarcodeScanner" />
+    </feature>
+    <feature name="MobileAccessibility">
+        <param name="ios-package" onload="true" value="CDVMobileAccessibility" />
+    </feature>
+    <name>Garlicoin Wallet</name>
+    <description>
+        Garlicoin Wallet
+    </description>
+    <author email="mpochert@gmail.com" />
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>To scan barcodes</string>
+    </edit-config>
+    <icon height="180" src="resources/ios/180.png" width="180" />
+    <icon height="60" src="resources/ios/60.png" width="60" />
+    <icon height="120" src="resources/ios/120.png" width="120" />
+    <icon height="76" src="resources/ios/76.png" width="76" />
+    <icon height="152" src="resources/ios/152.png" width="152" />
+    <icon height="40" src="resources/ios/40.png" width="40" />
+    <icon height="80" src="resources/ios/80.png" width="80" />
+    <icon height="57" src="resources/ios/57.png" width="57" />
+    <icon height="114" src="resources/ios/114.png" width="114" />
+    <icon height="72" src="resources/ios/72.png" width="72" />
+    <icon height="144" src="resources/ios/144.png" width="144" />
+    <icon height="29" src="resources/ios/29.png" width="29" />
+    <icon height="58" src="resources/ios/58.png" width="58" />
+    <icon height="87" src="resources/ios/87.png" width="87" />
+    <icon height="50" src="resources/ios/50.png" width="50" />
+    <icon height="100" src="resources/ios/100.png" width="100" />
+    <icon height="167" src="resources/ios/167.png" width="167" />
+    <icon height="1024" src="resources/ios/1024.png" width="1024" />
+    <allow-intent href="itms:*" />
+    <allow-intent href="itms-apps:*" />
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="MediaTypesRequiringUserActionForPlayback" value="none" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="SuppressesLongPressGesture" value="false" />
+    <preference name="Suppresses3DTouchGesture" value="false" />
+    <preference name="GapBetweenPages" value="0" />
+    <preference name="PageLength" value="0" />
+    <preference name="PaginationBreakingMode" value="page" />
+    <preference name="PaginationMode" value="unpaginated" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarStyle" value="blacktranslucent" />
+    <preference name="android-minSdkVersion" value="29" />
+    <preference name="StatusBarBackgroundColor" value="#1a2732" />
+</widget>
