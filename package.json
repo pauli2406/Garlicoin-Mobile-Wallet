@@ -6,7 +6,7 @@
   },
   "displayName": "GarlicoinAndroidWallet",
   "dependencies": {
-    "cordova-plugin-android-permissions": "^1.0.0",
+    "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-dialogs": "~2.0.2",
     "cordova-plugin-listpicker": "^2.2.2",
     "cordova-plugin-statusbar": "~2.4.3",
