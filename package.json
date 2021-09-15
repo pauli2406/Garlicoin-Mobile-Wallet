@@ -37,7 +37,7 @@
     "url": "git://github.com/pauli2406/GarlicoinAndroidWallet"
   },
   "devDependencies": {
-    "cordova-android": "^9.1.0",
+    "cordova-android": "^10.1.1",
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^6.2.0",
     "cordova-plugin-console": "^1.1.0",
