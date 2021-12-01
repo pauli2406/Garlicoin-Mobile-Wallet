@@ -9,7 +9,7 @@
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-dialogs": "~2.0.2",
     "cordova-plugin-listpicker": "^2.2.2",
-    "cordova-plugin-statusbar": "~2.4.3",
+    "cordova-plugin-statusbar": "~3.0.0",
     "cordova-plugin-whitelist": "~1.2.1",
     "phonegap-plugin-barcodescanner": "^8.1.0"
   },
